@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(dir /b \"C:\\Proje5\\verifynumber-web\\src\\app\\api\")",
+      "Bash(ls -la \"C:\\Proje5\\verifynumber-web\\src\\app\\api\"\" 2>/dev/null || find \"C:Proje5verifynumber-websrcappapi\" -type f -name \"*.ts \")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
