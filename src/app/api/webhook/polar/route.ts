@@ -149,29 +149,22 @@ export const POST = Webhooks({
         console.log('Checkout updated:', (payload.data as { id: string; status?: string }).id)
         break
 
-      case 'checkout.confirmed':
-        console.log('[Webhook] Checkout confirmed:', (payload.data as { id: string }).id)
+      case 'order.paid':
+        console.log('[Webhook] Order paid:', (payload.data as { id: string }).id)
+        // Handle successful payment - add balance to user
         await handleCheckoutCompleted(
           payload.data as {
             id: string
             metadata?: Record<string, string>
             amount?: number
           },
-          'checkout.confirmed'
+          'order.paid'
         )
         break
 
       case 'order.created':
         console.log('[Webhook] Order created:', (payload.data as { id: string }).id)
-        // Also handle order creation for balance updates (with idempotency check)
-        await handleCheckoutCompleted(
-          payload.data as {
-            id: string
-            metadata?: Record<string, string>
-            amount?: number
-          },
-          'order.created'
-        )
+        // Log only, don't process yet - wait for order.paid
         break
 
       case 'subscription.created':

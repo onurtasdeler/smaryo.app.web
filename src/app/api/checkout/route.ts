@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Polar } from '@polar-sh/sdk'
-import { BALANCE_PACKAGES, calculateBonus } from '@/types/polar'
+import { BALANCE_PACKAGES, calculateBonus, POLAR_PRODUCT_IDS } from '@/types/polar'
 
 // Initialize Polar client
 function getPolarClient(): Polar | null {
@@ -43,15 +43,16 @@ export async function POST(request: NextRequest) {
       bonusPercent = selectedPackage.bonus
       totalCredits = selectedPackage.totalCredits
       productId = selectedPackage.productId
-    } else if (customAmount && typeof customAmount === 'number' && customAmount >= 10) {
-      // Custom amount with dynamic bonus calculation
+    } else if (customAmount && typeof customAmount === 'number' && customAmount >= 1) {
+      // Custom amount with dynamic bonus calculation (min $1)
       amount = customAmount
       const bonusInfo = calculateBonus(customAmount)
       bonusPercent = bonusInfo.bonus
-      totalCredits = Math.floor(bonusInfo.total)
+      totalCredits = bonusInfo.total
+      productId = POLAR_PRODUCT_IDS.custom
     } else {
       return NextResponse.json(
-        { error: 'Paket ID veya geçerli tutar (min 10 TRY) gerekli' },
+        { error: 'Package ID or valid amount (min $1) required' },
         { status: 400 }
       )
     }
@@ -86,11 +87,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // For custom amount products, we need to pass the amount in cents
+    const isCustomAmount = !packageId && productId === POLAR_PRODUCT_IDS.custom
+    const amountInCents = isCustomAmount ? Math.round(amount * 100) : undefined
+
     try {
       const checkout = await polar.checkouts.create({
         products: [checkoutProductId],
         successUrl: `${baseUrl}/topup/success?checkout_id={CHECKOUT_ID}`,
         customerEmail: email,
+        amount: amountInCents, // Only used for custom price products
         metadata: {
           userId,
           amount: amount.toString(),
@@ -116,25 +122,32 @@ export async function POST(request: NextRequest) {
         ? 'https://api.polar.sh'
         : 'https://sandbox-api.polar.sh'
 
+      const checkoutBody: Record<string, unknown> = {
+        products: [checkoutProductId],
+        success_url: `${baseUrl}/topup/success?checkout_id={CHECKOUT_ID}`,
+        customer_email: email,
+        metadata: {
+          userId,
+          amount: amount.toString(),
+          bonusPercent: bonusPercent.toString(),
+          bonusAmount: bonusAmount.toString(),
+          totalCredits: totalCredits.toString(),
+          packageId: packageId || 'custom',
+        },
+      }
+
+      // Add amount for custom price products
+      if (isCustomAmount && amountInCents) {
+        checkoutBody.amount = amountInCents
+      }
+
       const response = await fetch(`${apiBase}/v1/checkouts/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.POLAR_ACCESS_TOKEN}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          products: [checkoutProductId],
-          success_url: `${baseUrl}/topup/success?checkout_id={CHECKOUT_ID}`,
-          customer_email: email,
-          metadata: {
-            userId,
-            amount: amount.toString(),
-            bonusPercent: bonusPercent.toString(),
-            bonusAmount: bonusAmount.toString(),
-            totalCredits: totalCredits.toString(),
-            packageId: packageId || 'custom',
-          },
-        }),
+        body: JSON.stringify(checkoutBody),
       })
 
       if (!response.ok) {

@@ -16,6 +16,7 @@ export const POLAR_PRODUCT_IDS = {
   balance_15: '63db8e06-96ec-4857-bbda-92b6ade92e98',  // $15 package
   balance_30: '877baa74-31fe-49d2-aac5-b74bb151b3ab',  // $30 package
   balance_60: 'd6079fea-c6d8-4ddc-9595-0b75d35daf1f',  // $60 package
+  custom: 'e278ff3d-9332-42f7-8a56-3c7dbca5b0ef',      // Custom amount ($1-$500)
 } as const
 
 // Polar Production Price IDs
@@ -24,6 +25,7 @@ export const POLAR_PRICE_IDS = {
   balance_15: '2a42ee59-fcce-49aa-8c82-c929165d2120',  // $15 price
   balance_30: 'acf4ee50-6e5c-4467-895a-22414e786472',  // $30 price
   balance_60: 'f498fef2-1563-4d72-a581-ea83c0546288',  // $60 price
+  custom: '992df86e-623d-48f5-9917-3489b336df6a',      // Custom price
 } as const
 
 // Balance packages with bonus rates (USD)
