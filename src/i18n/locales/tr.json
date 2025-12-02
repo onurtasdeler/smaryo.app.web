@@ -140,6 +140,15 @@
   "dashboard": {
     "title": "Panel",
     "defaultUser": "Kullanıcı",
+    "menu": "Menü",
+    "logout": "Çıkış Yap",
+    "navItems": {
+      "home": "Ana Sayfa",
+      "activation": "Aktivasyon",
+      "history": "Geçmiş",
+      "balance": "Bakiye",
+      "settings": "Ayarlar"
+    },
     "greeting": {
       "morning": "Günaydın",
       "afternoon": "İyi günler",

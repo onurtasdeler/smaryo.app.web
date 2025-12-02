@@ -140,6 +140,15 @@
   "dashboard": {
     "title": "Dashboard",
     "defaultUser": "User",
+    "menu": "Menu",
+    "logout": "Sign Out",
+    "navItems": {
+      "home": "Home",
+      "activation": "Activation",
+      "history": "History",
+      "balance": "Balance",
+      "settings": "Settings"
+    },
     "greeting": {
       "morning": "Good morning",
       "afternoon": "Good afternoon",
