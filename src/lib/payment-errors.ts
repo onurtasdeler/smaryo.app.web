@@ -1,67 +1,67 @@
-// Payment error messages in Turkish
+// Payment error translation keys
 export interface PaymentErrorInfo {
-  title: string
-  message: string
+  titleKey: string
+  messageKey: string
   icon?: 'error' | 'warning' | 'info'
 }
 
-export const PAYMENT_ERROR_MESSAGES: Record<string, PaymentErrorInfo> = {
+export const PAYMENT_ERROR_KEYS: Record<string, PaymentErrorInfo> = {
   cancelled: {
-    title: 'Ödeme İptal Edildi',
-    message: 'Ödeme işlemini iptal ettiniz. İstediğiniz zaman tekrar deneyebilirsiniz.',
+    titleKey: 'topup.failed.errors.cancelled.title',
+    messageKey: 'topup.failed.errors.cancelled.message',
     icon: 'warning',
   },
   declined: {
-    title: 'Kart Reddedildi',
-    message: 'Bankanız ödemeyi reddetti. Lütfen kart bilgilerinizi kontrol edin veya başka bir kart deneyin.',
+    titleKey: 'topup.failed.errors.declined.title',
+    messageKey: 'topup.failed.errors.declined.message',
     icon: 'error',
   },
   expired: {
-    title: 'Oturum Süresi Doldu',
-    message: 'Ödeme oturumunun süresi doldu. Lütfen tekrar deneyin.',
+    titleKey: 'topup.failed.errors.expired.title',
+    messageKey: 'topup.failed.errors.expired.message',
     icon: 'warning',
   },
   insufficient_funds: {
-    title: 'Yetersiz Bakiye',
-    message: 'Kartınızda yeterli bakiye bulunmuyor. Lütfen başka bir kart deneyin.',
+    titleKey: 'topup.failed.errors.insufficientFunds.title',
+    messageKey: 'topup.failed.errors.insufficientFunds.message',
     icon: 'error',
   },
   network_error: {
-    title: 'Bağlantı Hatası',
-    message: 'Bir bağlantı hatası oluştu. Lütfen internet bağlantınızı kontrol edip tekrar deneyin.',
+    titleKey: 'topup.failed.errors.networkError.title',
+    messageKey: 'topup.failed.errors.networkError.message',
     icon: 'warning',
   },
   verification_failed: {
-    title: 'Doğrulama Başarısız',
-    message: 'Ödemeniz doğrulanamadı. Lütfen tekrar deneyin veya destek ile iletişime geçin.',
+    titleKey: 'topup.failed.errors.verificationFailed.title',
+    messageKey: 'topup.failed.errors.verificationFailed.message',
     icon: 'error',
   },
   processing_error: {
-    title: 'İşlem Hatası',
-    message: 'Ödeme işlenirken bir hata oluştu. Bakiyeniz çekilmediyse tekrar deneyin.',
+    titleKey: 'topup.failed.errors.processingError.title',
+    messageKey: 'topup.failed.errors.processingError.message',
     icon: 'error',
   },
   card_error: {
-    title: 'Kart Hatası',
-    message: 'Kart bilgilerinizde bir sorun var. Lütfen bilgilerinizi kontrol edin.',
+    titleKey: 'topup.failed.errors.cardError.title',
+    messageKey: 'topup.failed.errors.cardError.message',
     icon: 'error',
   },
   authentication_failed: {
-    title: '3D Secure Doğrulama Başarısız',
-    message: '3D Secure doğrulaması başarısız oldu. Lütfen bankanızla iletişime geçin.',
+    titleKey: 'topup.failed.errors.authenticationFailed.title',
+    messageKey: 'topup.failed.errors.authenticationFailed.message',
     icon: 'error',
   },
   default: {
-    title: 'Ödeme Başarısız',
-    message: 'Ödeme işlenirken bir hata oluştu. Lütfen tekrar deneyin.',
+    titleKey: 'topup.failed.errors.default.title',
+    messageKey: 'topup.failed.errors.default.message',
     icon: 'error',
   },
 }
 
 // Get error info by reason code
-export function getPaymentError(reason: string | null): PaymentErrorInfo {
-  if (!reason) return PAYMENT_ERROR_MESSAGES.default
-  return PAYMENT_ERROR_MESSAGES[reason] || PAYMENT_ERROR_MESSAGES.default
+export function getPaymentErrorKeys(reason: string | null): PaymentErrorInfo {
+  if (!reason) return PAYMENT_ERROR_KEYS.default
+  return PAYMENT_ERROR_KEYS[reason] || PAYMENT_ERROR_KEYS.default
 }
 
 // Map Polar/Stripe error codes to our reason codes

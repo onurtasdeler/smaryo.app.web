@@ -1,6 +1,7 @@
 /**
  * 5sim.net API Client
  * Server-side only - uses API key from environment
+ * Currency: USD (prices from 5sim API priceUsd field)
  */
 
 import {
@@ -12,9 +13,7 @@ import {
   type FiveSimActivation,
   type FiveSimProduct,
 } from '@/types/fivesim'
-
-// RUB to TRY exchange rate (should be fetched dynamically in production)
-const RUB_TO_TRY_RATE = 0.38
+import { Locale } from '@/i18n/config'
 
 // Comprehensive popular services list - ordered by popularity
 export const POPULAR_SERVICES = [
@@ -128,7 +127,84 @@ const COUNTRY_ISO_MAP: Record<string, string> = {
   vietnam: 'VN', yemen: 'YE', zambia: 'ZM', zimbabwe: 'ZW',
 }
 
-// Country display names in Turkish (comprehensive list)
+// Country display names in English
+export const COUNTRY_NAMES_EN: Record<string, string> = {
+  // A
+  afghanistan: 'Afghanistan', albania: 'Albania', algeria: 'Algeria', andorra: 'Andorra', angola: 'Angola',
+  antiguaandbarbuda: 'Antigua and Barbuda', argentina: 'Argentina', armenia: 'Armenia', australia: 'Australia', austria: 'Austria',
+  azerbaijan: 'Azerbaijan',
+  // B
+  bahamas: 'Bahamas', bahrain: 'Bahrain', bangladesh: 'Bangladesh', barbados: 'Barbados', belarus: 'Belarus',
+  belgium: 'Belgium', belize: 'Belize', benin: 'Benin', bhutan: 'Bhutan', bolivia: 'Bolivia',
+  bosnia: 'Bosnia and Herzegovina', botswana: 'Botswana', brazil: 'Brazil', brunei: 'Brunei', bulgaria: 'Bulgaria',
+  burkinafaso: 'Burkina Faso', burundi: 'Burundi',
+  // C
+  cambodia: 'Cambodia', cameroon: 'Cameroon', canada: 'Canada', capeverde: 'Cape Verde',
+  centralafricanrepublic: 'Central African Republic', chad: 'Chad', chile: 'Chile', china: 'China',
+  colombia: 'Colombia', comoros: 'Comoros', congo: 'Congo', costarica: 'Costa Rica', croatia: 'Croatia',
+  cuba: 'Cuba', cyprus: 'Cyprus', czech: 'Czech Republic',
+  // D
+  denmark: 'Denmark', djibouti: 'Djibouti', dominica: 'Dominica', dominicanrepublic: 'Dominican Republic', drcongo: 'DR Congo',
+  // E
+  ecuador: 'Ecuador', egypt: 'Egypt', elsalvador: 'El Salvador', england: 'United Kingdom',
+  equatorialguinea: 'Equatorial Guinea', eritrea: 'Eritrea', estonia: 'Estonia', eswatini: 'Eswatini', ethiopia: 'Ethiopia',
+  // F
+  fiji: 'Fiji', finland: 'Finland', france: 'France',
+  // G
+  gabon: 'Gabon', gambia: 'Gambia', georgia: 'Georgia', germany: 'Germany', ghana: 'Ghana',
+  greece: 'Greece', grenada: 'Grenada', guatemala: 'Guatemala', guinea: 'Guinea', guineabissau: 'Guinea-Bissau', guyana: 'Guyana',
+  // H
+  haiti: 'Haiti', honduras: 'Honduras', hongkong: 'Hong Kong', hungary: 'Hungary',
+  // I
+  iceland: 'Iceland', india: 'India', indonesia: 'Indonesia', iran: 'Iran', iraq: 'Iraq',
+  ireland: 'Ireland', israel: 'Israel', italy: 'Italy', ivorycoast: 'Ivory Coast',
+  // J
+  jamaica: 'Jamaica', japan: 'Japan', jordan: 'Jordan',
+  // K
+  kazakhstan: 'Kazakhstan', kenya: 'Kenya', kiribati: 'Kiribati', kuwait: 'Kuwait', kyrgyzstan: 'Kyrgyzstan',
+  // L
+  laos: 'Laos', latvia: 'Latvia', lebanon: 'Lebanon', lesotho: 'Lesotho', liberia: 'Liberia',
+  libya: 'Libya', liechtenstein: 'Liechtenstein', lithuania: 'Lithuania', luxembourg: 'Luxembourg',
+  // M
+  macao: 'Macao', madagascar: 'Madagascar', malawi: 'Malawi', malaysia: 'Malaysia', maldives: 'Maldives',
+  mali: 'Mali', malta: 'Malta', mauritania: 'Mauritania', mauritius: 'Mauritius', mexico: 'Mexico',
+  moldova: 'Moldova', monaco: 'Monaco', mongolia: 'Mongolia', montenegro: 'Montenegro', morocco: 'Morocco',
+  mozambique: 'Mozambique', myanmar: 'Myanmar',
+  // N
+  namibia: 'Namibia', nepal: 'Nepal', netherlands: 'Netherlands', newzealand: 'New Zealand', nicaragua: 'Nicaragua',
+  niger: 'Niger', nigeria: 'Nigeria', northkorea: 'North Korea', northmacedonia: 'North Macedonia', norway: 'Norway',
+  // O
+  oman: 'Oman',
+  // P
+  pakistan: 'Pakistan', palestine: 'Palestine', panama: 'Panama', papuanewguinea: 'Papua New Guinea', paraguay: 'Paraguay',
+  peru: 'Peru', philippines: 'Philippines', poland: 'Poland', portugal: 'Portugal', puertorico: 'Puerto Rico',
+  // Q
+  qatar: 'Qatar',
+  // R
+  romania: 'Romania', russia: 'Russia', rwanda: 'Rwanda',
+  // S
+  saintkitts: 'Saint Kitts and Nevis', saintlucia: 'Saint Lucia', salvador: 'El Salvador', samoa: 'Samoa', sanmarino: 'San Marino',
+  saotome: 'São Tomé and Príncipe', saudiarabia: 'Saudi Arabia', senegal: 'Senegal', serbia: 'Serbia',
+  seychelles: 'Seychelles', sierraleone: 'Sierra Leone', singapore: 'Singapore', slovakia: 'Slovakia',
+  slovenia: 'Slovenia', solomonislands: 'Solomon Islands', somalia: 'Somalia', southafrica: 'South Africa',
+  southkorea: 'South Korea', southsudan: 'South Sudan', spain: 'Spain', srilanka: 'Sri Lanka', sudan: 'Sudan',
+  suriname: 'Suriname', sweden: 'Sweden', switzerland: 'Switzerland', syria: 'Syria',
+  // T
+  taiwan: 'Taiwan', tajikistan: 'Tajikistan', tanzania: 'Tanzania', thailand: 'Thailand', togo: 'Togo',
+  tonga: 'Tonga', trinidadandtobago: 'Trinidad and Tobago', tunisia: 'Tunisia', turkey: 'Turkey',
+  turkmenistan: 'Turkmenistan',
+  // U
+  uganda: 'Uganda', uk: 'United Kingdom', ukraine: 'Ukraine', uae: 'United Arab Emirates',
+  unitedarabemirates: 'United Arab Emirates', usa: 'United States', unitedstates: 'United States', uruguay: 'Uruguay', uzbekistan: 'Uzbekistan',
+  // V
+  vanuatu: 'Vanuatu', venezuela: 'Venezuela', vietnam: 'Vietnam',
+  // Y
+  yemen: 'Yemen',
+  // Z
+  zambia: 'Zambia', zimbabwe: 'Zimbabwe',
+}
+
+// Country display names in Turkish
 export const COUNTRY_NAMES_TR: Record<string, string> = {
   // A
   afghanistan: 'Afganistan', albania: 'Arnavutluk', algeria: 'Cezayir', andorra: 'Andorra', angola: 'Angola',
@@ -228,12 +304,15 @@ export function getCountryFlag(countryName: string): string {
 }
 
 /**
- * Get Turkish display name for a country, with fallback to capitalized English
+ * Get display name for a country, with locale support
+ * @param countryName - Country name from 5sim API
+ * @param locale - Locale ('en' or 'tr'), defaults to 'en'
  */
-export function getCountryDisplayName(countryName: string): string {
+export function getCountryDisplayName(countryName: string, locale: Locale = 'en'): string {
   const normalized = countryName.toLowerCase().replace(/[\s-]/g, '')
-  const turkishName = COUNTRY_NAMES_TR[normalized]
-  if (turkishName) return turkishName
+  const nameMap = locale === 'tr' ? COUNTRY_NAMES_TR : COUNTRY_NAMES_EN
+  const localizedName = nameMap[normalized]
+  if (localizedName) return localizedName
   // Fallback: capitalize first letter of each word
   return countryName
     .split(/[\s-]+/)
@@ -302,10 +381,12 @@ async function fiveSimGuestFetch<T>(endpoint: string): Promise<T> {
 }
 
 /**
- * Convert RUB price to TRY
+ * Convert RUB price to USD (using approximate rate)
+ * Note: 5sim API provides priceUsd directly in some responses
  */
-export function rubToTry(rubPrice: number): number {
-  return Math.ceil(rubPrice * RUB_TO_TRY_RATE * 100) / 100
+export function rubToUsd(rubPrice: number): number {
+  // 1 RUB ≈ 0.011 USD (approximate rate)
+  return Math.ceil(rubPrice * 0.011 * 100) / 100
 }
 
 // ============================================================================
@@ -323,7 +404,7 @@ export async function fetchCountries(): Promise<FiveSimCountry[]> {
   return Object.entries(data).map(([iso, country]) => ({
     ...country,
     iso,
-    name: COUNTRY_NAMES_TR[iso] || country.name || iso,
+    name: COUNTRY_NAMES_EN[iso] || country.name || iso,
     flag: COUNTRY_FLAGS[iso] || '🏳️',
   }))
 }
@@ -349,8 +430,8 @@ export async function fetchProducts(
       product,
       operator,
       price,
-      priceUsd: price / 100, // Approximate
-      priceAmount: rubToTry(price),
+      priceUsd: rubToUsd(price),
+      priceAmount: rubToUsd(price),
       count,
     }
   })
@@ -362,7 +443,7 @@ export async function fetchProducts(
 export async function fetchPricing(
   country: string,
   product: string
-): Promise<{ price: number; priceTry: number; count: number; operators: string[] }> {
+): Promise<{ price: number; priceUsd: number; count: number; operators: string[] }> {
   const endpoint = `${FIVESIM_ENDPOINTS.PRICES}?country=${country}&product=${product}`
   const data = await fiveSimGuestFetch<FiveSimPricingResponse>(endpoint)
 
@@ -390,7 +471,7 @@ export async function fetchPricing(
 
   return {
     price: minPrice === Infinity ? 0 : minPrice,
-    priceTry: minPrice === Infinity ? 0 : rubToTry(minPrice),
+    priceUsd: minPrice === Infinity ? 0 : rubToUsd(minPrice),
     count: totalCount,
     operators,
   }
@@ -405,12 +486,12 @@ export async function fetchPricing(
  */
 export async function fetchServicePrices(
   product: string
-): Promise<Record<string, { price: number; priceTry: number; count: number }>> {
+): Promise<Record<string, { price: number; priceUsd: number; count: number }>> {
   // 5sim API: /guest/prices?product=telegram returns all countries
   const endpoint = `${FIVESIM_ENDPOINTS.PRICES}?product=${product}`
   const data = await fiveSimGuestFetch<FiveSimPricingResponse>(endpoint)
 
-  const result: Record<string, { price: number; priceTry: number; count: number }> = {}
+  const result: Record<string, { price: number; priceUsd: number; count: number }> = {}
 
   // API response structure: {product: {country: {operator: {cost, count}}}}
   // Get the product data - countries are nested inside the product key
@@ -439,7 +520,7 @@ export async function fetchServicePrices(
     if (minPrice !== Infinity && totalCount > 0) {
       result[countryIso] = {
         price: minPrice,
-        priceTry: rubToTry(minPrice),
+        priceUsd: rubToUsd(minPrice),
         count: totalCount,
       }
     }
@@ -464,7 +545,7 @@ export async function buyNumber(
 
   return {
     ...activation,
-    priceAmount: rubToTry(activation.price),
+    priceAmount: rubToUsd(activation.price),
   }
 }
 
@@ -478,7 +559,7 @@ export async function checkActivation(id: number): Promise<FiveSimActivation> {
 
   return {
     ...activation,
-    priceAmount: rubToTry(activation.price),
+    priceAmount: rubToUsd(activation.price),
   }
 }
 
@@ -529,7 +610,7 @@ export interface TransformedProduct {
   name: string
   icon: string
   price: number
-  priceTry: number
+  priceUsd: number
   count: number
 }
 
@@ -537,7 +618,7 @@ export interface PricingInfo {
   country: string
   product: string
   price: number
-  priceTry: number
+  priceUsd: number
   count: number
   operators: string[]
 }

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { fetchProducts, POPULAR_SERVICES, rubToTry } from '@/lib/5sim-client'
+import { fetchProducts, POPULAR_SERVICES, rubToUsd } from '@/lib/5sim-client'
 
 export const revalidate = 300 // Cache for 5 minutes
 
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
         id: product.product,
         name: popularService?.name || product.product,
         price: product.price,
-        priceTry: rubToTry(product.price),
+        priceUsd: rubToUsd(product.price),
         count: product.count,
         operator: product.operator,
         isPopular: !!popularService,

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTranslation } from '@/i18n/client'
 import { formatCurrency } from '@/lib/utils'
 import {
   Home,
@@ -25,14 +26,15 @@ export default function DashboardLayout({
 }) {
   const router = useRouter()
   const pathname = usePathname()
+  const { t, locale } = useTranslation()
   const { user, profile, loading, signOut } = useAuth()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/login')
+      router.push(`/${locale}/login`)
     }
-  }, [user, loading, router])
+  }, [user, loading, router, locale])
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -53,16 +55,19 @@ export default function DashboardLayout({
 
   const handleSignOut = async () => {
     await signOut()
-    router.push('/')
+    router.push(`/${locale}`)
   }
 
   const navItems = [
-    { href: '/dashboard', icon: Home, label: 'Ana Sayfa' },
-    { href: '/activation', icon: Smartphone, label: 'Aktivasyon' },
-    { href: '/history', icon: History, label: 'Geçmiş' },
-    { href: '/topup', icon: CreditCard, label: 'Bakiye' },
-    { href: '/settings', icon: Settings, label: 'Ayarlar' },
+    { href: `/${locale}/dashboard`, icon: Home, label: t('dashboard.navItems.home') },
+    { href: `/${locale}/activation`, icon: Smartphone, label: t('dashboard.navItems.activation') },
+    { href: `/${locale}/history`, icon: History, label: t('dashboard.navItems.history') },
+    { href: `/${locale}/topup`, icon: CreditCard, label: t('dashboard.navItems.balance') },
+    { href: `/${locale}/settings`, icon: Settings, label: t('dashboard.navItems.settings') },
   ]
+
+  // Check if current path matches nav item (handle locale prefix)
+  const isActive = (href: string) => pathname === href
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,19 +75,19 @@ export default function DashboardLayout({
       <aside className="fixed left-0 top-0 bottom-0 w-56 border-r border-border hidden lg:flex flex-col z-50 bg-background">
         {/* Logo */}
         <div className="h-14 flex items-center px-6 border-b border-border">
-          <Link href="/dashboard" className="flex items-center gap-2">
+          <Link href={`/${locale}/dashboard`} className="flex items-center gap-2">
             <span className="text-sm font-semibold tracking-tight">Smaryo</span>
           </Link>
         </div>
 
         {/* Balance */}
         <div className="px-4 py-6 border-b border-border">
-          <p className="dash-stat-label mb-1">Bakiye</p>
+          <p className="dash-stat-label mb-1">{t('dashboard.balance')}</p>
           <p className="text-2xl font-light text-foreground mb-3">
-            {formatCurrency(profile?.balance || 0)}
+            {formatCurrency(profile?.balance || 0, locale)}
           </p>
-          <Link href="/topup" className="dash-link text-xs">
-            Yükle <ArrowUpRight className="w-3 h-3" />
+          <Link href={`/${locale}/topup`} className="dash-link text-xs">
+            {t('dashboard.topUp')} <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
 
@@ -93,7 +98,7 @@ export default function DashboardLayout({
               key={item.href}
               href={item.href}
               icon={item.icon}
-              active={pathname === item.href}
+              active={isActive(item.href)}
             >
               {item.label}
             </NavLink>
@@ -112,7 +117,7 @@ export default function DashboardLayout({
             className="flex items-center w-full gap-2.5 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <LogOut className="w-4 h-4" />
-            Çıkış
+            {t('dashboard.logout')}
           </button>
         </div>
       </aside>
@@ -129,16 +134,16 @@ export default function DashboardLayout({
           </button>
 
           {/* Logo */}
-          <Link href="/dashboard" className="text-sm font-semibold">
+          <Link href={`/${locale}/dashboard`} className="text-sm font-semibold">
             Smaryo
           </Link>
 
           {/* Balance */}
           <Link
-            href="/topup"
+            href={`/${locale}/topup`}
             className="text-sm font-medium text-foreground"
           >
-            {formatCurrency(profile?.balance || 0)}
+            {formatCurrency(profile?.balance || 0, locale)}
           </Link>
         </div>
       </header>
@@ -161,7 +166,7 @@ export default function DashboardLayout({
       >
         {/* Close Button */}
         <div className="h-14 flex items-center justify-between px-4 border-b border-border">
-          <span className="text-sm font-semibold">Menü</span>
+          <span className="text-sm font-semibold">{t('dashboard.menu')}</span>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
             className="p-2 -mr-2 text-foreground"
@@ -172,12 +177,12 @@ export default function DashboardLayout({
 
         {/* Balance */}
         <div className="px-4 py-6 border-b border-border">
-          <p className="dash-stat-label mb-1">Bakiye</p>
+          <p className="dash-stat-label mb-1">{t('dashboard.balance')}</p>
           <p className="text-2xl font-light text-foreground mb-3">
-            {formatCurrency(profile?.balance || 0)}
+            {formatCurrency(profile?.balance || 0, locale)}
           </p>
-          <Link href="/topup" className="dash-link text-xs">
-            Yükle <ArrowUpRight className="w-3 h-3" />
+          <Link href={`/${locale}/topup`} className="dash-link text-xs">
+            {t('dashboard.topUp')} <ArrowUpRight className="w-3 h-3" />
           </Link>
         </div>
 
@@ -188,7 +193,7 @@ export default function DashboardLayout({
               key={item.href}
               href={item.href}
               icon={item.icon}
-              active={pathname === item.href}
+              active={isActive(item.href)}
             >
               {item.label}
             </NavLink>
@@ -207,7 +212,7 @@ export default function DashboardLayout({
             className="flex items-center w-full gap-2.5 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <LogOut className="w-4 h-4" />
-            Çıkış
+            {t('dashboard.logout')}
           </button>
         </div>
       </div>
@@ -232,7 +237,7 @@ export default function DashboardLayout({
               href={item.href}
               icon={item.icon}
               label={item.label}
-              active={pathname === item.href}
+              active={isActive(item.href)}
             />
           ))}
         </div>

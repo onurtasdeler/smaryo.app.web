@@ -3,17 +3,19 @@
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { XCircle, RefreshCw, Home, Mail } from 'lucide-react'
-import { getPaymentError } from '@/lib/payment-errors'
+import { getPaymentErrorKeys } from '@/lib/payment-errors'
 import { formatCurrency } from '@/lib/utils'
+import { useTranslation } from '@/i18n/client'
 
 export default function TopupFailedPage() {
+  const { t, locale } = useTranslation()
   const searchParams = useSearchParams()
 
   const reason = searchParams.get('reason')
   const checkoutId = searchParams.get('checkout_id')
   const amount = searchParams.get('amount')
 
-  const errorInfo = getPaymentError(reason)
+  const errorKeys = getPaymentErrorKeys(reason)
 
   return (
     <div className="max-w-lg mx-auto px-4 py-12 text-center">
@@ -27,10 +29,10 @@ export default function TopupFailedPage() {
 
       {/* Title */}
       <h1 className="text-2xl font-light text-foreground mb-2 dash-animate dash-animate-delay-1">
-        {errorInfo.title}
+        {t(errorKeys.titleKey)}
       </h1>
       <p className="text-muted-foreground mb-8 dash-animate dash-animate-delay-2">
-        {errorInfo.message}
+        {t(errorKeys.messageKey)}
       </p>
 
       {/* Reference Info */}
@@ -38,14 +40,14 @@ export default function TopupFailedPage() {
         <div className="mb-8 p-4 bg-muted/30 border border-border text-left dash-animate dash-animate-delay-3">
           {checkoutId && (
             <div className="mb-2">
-              <p className="text-xs text-muted-foreground mb-1">Referans Kodu</p>
+              <p className="text-xs text-muted-foreground mb-1">{t('topup.failed.referenceCode')}</p>
               <p className="text-sm font-mono text-foreground break-all">{checkoutId}</p>
             </div>
           )}
           {amount && (
             <div>
-              <p className="text-xs text-muted-foreground mb-1">İşlem Tutarı</p>
-              <p className="text-sm font-medium text-foreground">{formatCurrency(parseFloat(amount))}</p>
+              <p className="text-xs text-muted-foreground mb-1">{t('topup.failed.transactionAmount')}</p>
+              <p className="text-sm font-medium text-foreground">{formatCurrency(parseFloat(amount), locale)}</p>
             </div>
           )}
         </div>
@@ -54,39 +56,38 @@ export default function TopupFailedPage() {
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-4 dash-animate dash-animate-delay-4">
         <Link
-          href={amount ? `/topup?amount=${amount}` : '/topup'}
+          href={amount ? `/${locale}/topup?amount=${amount}` : `/${locale}/topup`}
           className="flex-1 flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 font-medium hover:opacity-90 transition-opacity"
         >
           <RefreshCw className="w-4 h-4" />
-          Tekrar Dene
+          {t('topup.failed.tryAgain')}
         </Link>
         <Link
-          href="/dashboard"
+          href={`/${locale}/dashboard`}
           className="flex-1 flex items-center justify-center gap-2 border border-border text-foreground px-6 py-3 font-medium hover:bg-muted/30 transition-colors"
         >
           <Home className="w-4 h-4" />
-          Ana Sayfa
+          {t('topup.failed.home')}
         </Link>
       </div>
 
       {/* Support Info */}
       <div className="mt-10 pt-6 border-t border-border dash-animate dash-animate-delay-5">
         <p className="text-sm text-muted-foreground mb-2">
-          Yardıma mı ihtiyacınız var?
+          {t('topup.failed.needHelp')}
         </p>
         <a
-          href="mailto:destek@smaryo.app"
+          href="mailto:support@smaryo.app"
           className="inline-flex items-center gap-2 text-sm text-foreground hover:underline"
         >
           <Mail className="w-4 h-4" />
-          destek@smaryo.app
+          support@smaryo.app
         </a>
       </div>
 
       {/* Additional Help Text */}
       <p className="mt-6 text-xs text-muted-foreground dash-animate dash-animate-delay-6">
-        Kart bilgileriniz güvende. Başarısız ödemelerde kartınızdan
-        herhangi bir tutar çekilmez.
+        {t('topup.failed.cardSafe')}
       </p>
     </div>
   )

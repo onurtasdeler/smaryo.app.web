@@ -21,7 +21,7 @@ interface TransformedProduct {
   name: string
   icon: string
   price: number
-  priceTry: number
+  priceUsd: number
   count: number
   operator: string
   isPopular: boolean
@@ -31,7 +31,7 @@ interface PricingData {
   country: string
   product: string
   price: number
-  priceTry: number
+  priceUsd: number
   count: number
   operators: string[]
 }
@@ -141,7 +141,7 @@ export interface CountryWithPrice {
   name: string
   flag: string
   price: number
-  priceTry: number
+  priceUsd: number
   count: number
 }
 

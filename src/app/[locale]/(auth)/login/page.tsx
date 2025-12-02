@@ -4,10 +4,12 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTranslation } from '@/i18n/client'
 import { Loader2, ArrowRight } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
+  const { t, locale } = useTranslation()
   const { signIn, signInWithGoogle, loading, error } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,9 +23,9 @@ export default function LoginPage() {
 
     try {
       await signIn(email, password)
-      router.push('/dashboard')
+      router.push(`/${locale}/dashboard`)
     } catch (err) {
-      setLocalError(getErrorMessage(err))
+      setLocalError(getErrorMessage(err, t))
     } finally {
       setIsSubmitting(false)
     }
@@ -35,9 +37,9 @@ export default function LoginPage() {
 
     try {
       await signInWithGoogle()
-      router.push('/dashboard')
+      router.push(`/${locale}/dashboard`)
     } catch (err) {
-      setLocalError(getErrorMessage(err))
+      setLocalError(getErrorMessage(err, t))
     } finally {
       setIsSubmitting(false)
     }
@@ -64,7 +66,7 @@ export default function LoginPage() {
 
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 auth-animate">
+          <Link href={`/${locale}`} className="flex items-center gap-3 auth-animate">
             <div className="w-10 h-10 border border-white/30 flex items-center justify-center">
               <span className="text-lg font-light">S</span>
             </div>
@@ -74,24 +76,25 @@ export default function LoginPage() {
           {/* Main Content */}
           <div className="max-w-md">
             <h1 className="text-4xl font-light leading-tight mb-6 auth-animate auth-animate-delay-1">
-              SMS doğrulama
+              {t('auth.brandPanel.smsVerification')}
               <br />
-              <span className="font-normal">artık çok kolay.</span>
+              <span className="font-normal">{t('auth.brandPanel.nowEasy')}</span>
             </h1>
             <p className="text-white/60 text-sm leading-relaxed auth-animate auth-animate-delay-2">
-              Sanal numaralarla hesaplarınızı güvenle doğrulayın.
-              Hızlı, güvenilir ve uygun fiyatlı.
+              {t('auth.brandPanel.verifyAccountsSafely')}
+              <br />
+              {t('auth.brandPanel.fastReliableAffordable')}
             </p>
           </div>
 
           {/* Footer */}
           <div className="flex items-center gap-8 text-xs text-white/40 auth-animate auth-animate-delay-3">
-            <span>© 2024 Smaryo</span>
-            <Link href="/privacy" className="hover:text-white/60 transition-colors">
-              Gizlilik
+            <span>&copy; 2024 Smaryo</span>
+            <Link href={`/${locale}/privacy`} className="hover:text-white/60 transition-colors">
+              {t('auth.privacyPolicy')}
             </Link>
-            <Link href="/terms" className="hover:text-white/60 transition-colors">
-              Şartlar
+            <Link href={`/${locale}/terms`} className="hover:text-white/60 transition-colors">
+              {t('auth.termsOfService')}
             </Link>
           </div>
         </div>
@@ -100,7 +103,7 @@ export default function LoginPage() {
       {/* Right Panel - Form */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 py-12 lg:px-16 xl:px-24 bg-background">
         {/* Mobile Logo */}
-        <Link href="/" className="lg:hidden flex items-center gap-3 mb-12 auth-animate">
+        <Link href={`/${locale}`} className="lg:hidden flex items-center gap-3 mb-12 auth-animate">
           <div className="w-9 h-9 bg-foreground text-background flex items-center justify-center">
             <span className="text-base font-light">S</span>
           </div>
@@ -113,10 +116,10 @@ export default function LoginPage() {
           {/* Header */}
           <div className="mb-10 auth-animate auth-animate-delay-1">
             <h2 className="text-2xl font-light text-foreground mb-2">
-              Hoş geldiniz
+              {t('auth.welcomeBack')}
             </h2>
             <p className="text-sm text-muted-foreground">
-              Devam etmek için giriş yapın
+              {t('auth.continueToSignIn')}
             </p>
           </div>
 
@@ -138,7 +141,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="auth-input"
-                  placeholder="E-posta adresiniz"
+                  placeholder={t('auth.emailPlaceholder')}
                 />
                 <div className="auth-input-line" />
               </div>
@@ -153,13 +156,13 @@ export default function LoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   className="auth-input"
-                  placeholder="Şifreniz"
+                  placeholder={t('auth.passwordPlaceholder')}
                 />
                 <div className="auth-input-line" />
               </div>
               <div className="flex justify-end mt-2">
-                <Link href="/forgot-password" className="auth-link auth-link-underline">
-                  Şifremi unuttum
+                <Link href={`/${locale}/forgot-password`} className="auth-link auth-link-underline">
+                  {t('auth.forgotPassword')}
                 </Link>
               </div>
             </div>
@@ -174,7 +177,7 @@ export default function LoginPage() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    Giriş Yap
+                    {t('auth.login')}
                     <ArrowRight className="h-4 w-4" />
                   </>
                 )}
@@ -184,7 +187,7 @@ export default function LoginPage() {
 
           {/* Divider */}
           <div className="auth-divider my-8 auth-animate auth-animate-delay-5">
-            <span>veya</span>
+            <span>{t('common.or')}</span>
           </div>
 
           {/* Google */}
@@ -212,15 +215,15 @@ export default function LoginPage() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Google ile devam et
+              {t('auth.googleLogin')}
             </button>
           </div>
 
           {/* Register Link */}
           <p className="mt-10 text-center text-sm text-muted-foreground auth-animate auth-animate-delay-6">
-            Hesabınız yok mu?{' '}
-            <Link href="/register" className="auth-link auth-link-underline font-medium text-foreground">
-              Kayıt olun
+            {t('auth.noAccount')}{' '}
+            <Link href={`/${locale}/register`} className="auth-link auth-link-underline font-medium text-foreground">
+              {t('auth.register')}
             </Link>
           </p>
         </div>
@@ -229,22 +232,22 @@ export default function LoginPage() {
   )
 }
 
-function getErrorMessage(error: unknown): string {
+function getErrorMessage(error: unknown, t: (key: string) => string): string {
   if (error instanceof Error) {
     const message = error.message.toLowerCase()
     if (message.includes('user-not-found') || message.includes('wrong-password') || message.includes('invalid-credential')) {
-      return 'E-posta veya şifre hatalı'
+      return t('auth.errors.invalidCredentials')
     }
     if (message.includes('too-many-requests')) {
-      return 'Çok fazla deneme. Lütfen bekleyin.'
+      return t('auth.errors.tooManyAttempts')
     }
     if (message.includes('invalid-email')) {
-      return 'Geçersiz e-posta adresi'
+      return t('auth.errors.invalidEmail')
     }
     if (message.includes('popup-closed-by-user')) {
-      return 'Giriş penceresi kapatıldı'
+      return t('auth.errors.popupClosed')
     }
     return error.message
   }
-  return 'Bir hata oluştu'
+  return t('auth.errors.generic')
 }

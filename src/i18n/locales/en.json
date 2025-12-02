@@ -1,0 +1,480 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "back": "Back",
+    "next": "Next",
+    "continue": "Continue",
+    "copy": "Copy",
+    "copied": "Copied",
+    "close": "Close",
+    "or": "or",
+    "yes": "Yes",
+    "no": "No",
+    "price": "Price"
+  },
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "login": "Sign In",
+    "getStarted": "Get Started"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "logout": "Sign Out",
+    "email": "Email address",
+    "emailPlaceholder": "Your email address",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "createPassword": "Create a password",
+    "confirmPassword": "Confirm password",
+    "repeatPassword": "Repeat password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "googleLogin": "Continue with Google",
+    "googleRegister": "Sign up with Google",
+    "welcome": "Welcome",
+    "welcomeBack": "Welcome back",
+    "continueToSignIn": "Sign in to continue",
+    "createAccount": "Create an account",
+    "registrationTakesMinute": "Registration only takes a minute",
+    "termsAccept": "I have read and agree to the",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "and": "and",
+    "passwordStrength": {
+      "weak": "Weak",
+      "medium": "Medium",
+      "strong": "Strong"
+    },
+    "brandPanel": {
+      "smsVerification": "SMS verification",
+      "nowEasy": "is now easy.",
+      "verifyAccountsSafely": "Verify your accounts safely with virtual numbers.",
+      "fastReliableAffordable": "Fast, reliable, and affordable.",
+      "getStartedFree": "Get started,",
+      "free": "free.",
+      "instantAccount": "Instant account creation",
+      "countriesOption": "Numbers from 50+ countries",
+      "supportSecurity": "24/7 support and security"
+    },
+    "errors": {
+      "invalidCredentials": "Invalid email or password",
+      "tooManyAttempts": "Too many attempts. Please wait.",
+      "invalidEmail": "Invalid email address",
+      "emailInUse": "This email is already in use",
+      "weakPassword": "Choose a stronger password",
+      "passwordMismatch": "Passwords do not match",
+      "minPassword": "Password must be at least 6 characters",
+      "popupClosed": "Sign in window was closed",
+      "termsRequired": "You must accept the terms of service",
+      "generic": "An error occurred"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "SMS Verification Service",
+      "title": "Secure verification",
+      "titleHighlight": "in seconds.",
+      "description": "Verify your accounts instantly with temporary phone numbers from 170+ countries.",
+      "cta": "Get Started",
+      "howItWorks": "How It Works?"
+    },
+    "stats": {
+      "countries": "Countries",
+      "verifications": "Verifications",
+      "success": "Success"
+    },
+    "features": {
+      "badge": "Features",
+      "title": "Why",
+      "titleHighlight": "Smaryo?",
+      "globalCoverage": "Global Coverage",
+      "globalCoverageDesc": "Phone number support from over 170 countries worldwide.",
+      "instantDelivery": "Instant Delivery",
+      "instantDeliveryDesc": "Codes arrive in your panel within seconds.",
+      "fullPrivacy": "Full Privacy",
+      "fullPrivacyDesc": "Transact securely without sharing your personal number.",
+      "affordablePrices": "Affordable Prices",
+      "affordablePricesDesc": "The most competitive prices and bonuses in the market.",
+      "easyInterface": "Easy Interface",
+      "easyInterfaceDesc": "Modern panel that works seamlessly on every device.",
+      "popularServices": "Popular Services",
+      "popularServicesDesc": "Telegram, WhatsApp, Google, and more"
+    },
+    "pricing": {
+      "badge": "Pricing",
+      "title": "Load more,",
+      "titleHighlight": "earn more.",
+      "subtitle": "Earn extra bonus on higher deposits.",
+      "popular": "Popular",
+      "bonus": "bonus",
+      "total": "Total"
+    },
+    "cta": {
+      "title": "Get started now",
+      "description": "Create a free account and complete your first verification in seconds.",
+      "button": "Free Sign Up"
+    },
+    "footer": {
+      "description": "Secure SMS verification service with temporary phone numbers from 170+ countries.",
+      "links": "Links",
+      "login": "Sign In",
+      "register": "Sign Up",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "mobileApp": "Mobile App",
+      "mobileAppDesc": "Download Smaryo on your mobile device.",
+      "download": "Download",
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "copyright": "All rights reserved."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "defaultUser": "User",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "balance": "Balance",
+    "topUp": "Top Up",
+    "total": "Total",
+    "activations": "Activation",
+    "success": "Success",
+    "successRate": "Success rate",
+    "active": "Active",
+    "pendingNumbers": "Pending numbers",
+    "noPending": "No pending",
+    "lowBalance": "Low Balance Warning",
+    "lowBalanceWarning": "Your balance is at {amount}. Top up for uninterrupted service.",
+    "activeNumbers": "Active Numbers",
+    "refresh": "Refresh",
+    "smsWaiting": "Waiting for SMS...",
+    "expired": "Expired",
+    "timeExpired": "Expired",
+    "quickAction": "Quick Action",
+    "allServices": "All services",
+    "searchPlaceholder": "Search service... (Telegram, WhatsApp, Instagram...)",
+    "noResults": "No results found for \"{query}\"",
+    "favorites": "Your Favorites",
+    "quickGet": "Quick get",
+    "recentActivity": "Recent Activity",
+    "seeAll": "See all",
+    "noActivations": "No activations yet",
+    "getFirstNumber": "Get your first number",
+    "status": {
+      "completed": "Completed",
+      "pending": "Pending",
+      "expired": "Expired",
+      "cancelled": "Cancelled"
+    },
+    "howItWorks": {
+      "title": "How It Works?",
+      "step1": { "num": "01", "title": "Select Service", "desc": "Choose the platform you want to verify" },
+      "step2": { "num": "02", "title": "Select Country", "desc": "Choose the phone number location" },
+      "step3": { "num": "03", "title": "Get Number", "desc": "Your number is ready in seconds" },
+      "step4": { "num": "04", "title": "Get Code", "desc": "Receive the SMS code and complete" }
+    }
+  },
+  "activation": {
+    "title": "Activation",
+    "selectService": "Select Service",
+    "searchPlaceholder": "Search service... (e.g., Telegram, WhatsApp, Google)",
+    "noServiceFound": "No service found",
+    "selectCountry": "Select Country",
+    "chooseCountry": "Choose Country",
+    "loadingPrices": "Loading prices...",
+    "noCountries": "No countries available for this service",
+    "price": "Price",
+    "getNumber": "Get Number",
+    "gettingNumber": "Getting number...",
+    "waitingSms": "Waiting for SMS",
+    "smsReceived": "SMS Received!",
+    "complete": "Complete",
+    "completing": "Completing...",
+    "cancel": "Cancel",
+    "canceling": "Canceling...",
+    "newActivation": "New Activation",
+    "topUpBalance": "Top Up Balance",
+    "status": {
+      "completed": "Activation Completed",
+      "canceled": "Activation Canceled",
+      "timeout": "Timed Out",
+      "smsSuccess": "SMS received successfully.",
+      "refunded": "Your balance has been refunded.",
+      "smsNotReceived": "SMS was not received, your balance has been refunded."
+    }
+  },
+  "topup": {
+    "title": "Top Up",
+    "pageLabel": "Balance Management",
+    "currentBalance": "Current Balance",
+    "active": "Active",
+    "selectPackage": "Select Package",
+    "selectPackageSubtitle": "Load more, earn more",
+    "customAmount": "Custom Amount",
+    "customAmountDesc": "Enter your own amount",
+    "enterAmount": "Enter amount",
+    "minAmount": "Min $1",
+    "bonusLevel": "Bonus Level",
+    "bonusActive": "+{rate}% Bonus Active",
+    "noBonus": "No Bonus",
+    "bonus": "Bonus",
+    "totalBalance": "Total Balance",
+    "trustBadges": {
+      "securePayment": "Secure Payment",
+      "instantDeposit": "Instant Deposit",
+      "support247": "24/7 Support"
+    },
+    "summary": {
+      "deposit": "Deposit",
+      "bonus": "Bonus",
+      "total": "Total"
+    },
+    "payButton": "Pay {amount}",
+    "processing": "Processing...",
+    "redirecting": "Redirecting to payment page...",
+    "dontClose": "Please don't close this page.",
+    "errors": {
+      "pleaseWait": "Please wait a few seconds",
+      "minAmount": "Minimum deposit is $1",
+      "pleaseLogin": "Please sign in",
+      "paymentFailed": "Payment could not be initiated",
+      "noPaymentUrl": "Payment URL could not be retrieved"
+    },
+    "packages": {
+      "starter": "Starter",
+      "popular": "Popular",
+      "value": "Value",
+      "premium": "Premium"
+    },
+    "bonusTiers": {
+      "tier0": "No Bonus",
+      "tier5": "5% Bonus",
+      "tier10": "10% Bonus",
+      "tier15": "15% Bonus",
+      "tier20": "20% Bonus"
+    }
+  },
+  "topupSuccess": {
+    "verifying": "Verifying payment...",
+    "pleaseWait": "Please wait, this may take a few seconds.",
+    "paymentReceived": "Payment Received",
+    "paymentReceivedDesc": "Your payment was received. Your balance will be updated within a few minutes.",
+    "transactionDetails": "Transaction Details",
+    "amount": "Amount",
+    "bonus": "Bonus",
+    "total": "Total",
+    "checkBalance": "Check Balance",
+    "dontWorry": "Don't worry - your payment is safe.",
+    "contactSupport": "If the problem persists, contact us at",
+    "verificationFailed": "Verification Failed",
+    "verificationFailedDesc": "Your payment could not be verified. Please try again.",
+    "tryAgain": "Try Again",
+    "home": "Home",
+    "success": "Payment Successful!",
+    "successDesc": "Your balance has been loaded successfully.",
+    "summary": "Transaction Summary",
+    "depositAmount": "Deposit Amount",
+    "addedBalance": "Added Balance",
+    "newBalance": "Your New Balance",
+    "startActivation": "Start Activation"
+  },
+  "topup.failed": {
+    "referenceCode": "Reference Code",
+    "transactionAmount": "Transaction Amount",
+    "tryAgain": "Try Again",
+    "home": "Home",
+    "needHelp": "Need help?",
+    "cardSafe": "Your card information is safe. Failed payments do not charge your card.",
+    "errors": {
+      "cancelled": {
+        "title": "Payment Cancelled",
+        "message": "You cancelled the payment. You can try again anytime."
+      },
+      "declined": {
+        "title": "Card Declined",
+        "message": "Your bank declined the payment. Please check your card details or try another card."
+      },
+      "expired": {
+        "title": "Session Expired",
+        "message": "The payment session has expired. Please try again."
+      },
+      "insufficientFunds": {
+        "title": "Insufficient Funds",
+        "message": "Your card does not have enough balance. Please try another card."
+      },
+      "networkError": {
+        "title": "Connection Error",
+        "message": "A connection error occurred. Please check your internet and try again."
+      },
+      "verificationFailed": {
+        "title": "Verification Failed",
+        "message": "Your payment could not be verified. Please try again or contact support."
+      },
+      "processingError": {
+        "title": "Processing Error",
+        "message": "An error occurred while processing your payment. If you weren't charged, try again."
+      },
+      "cardError": {
+        "title": "Card Error",
+        "message": "There's an issue with your card details. Please check and try again."
+      },
+      "authenticationFailed": {
+        "title": "3D Secure Verification Failed",
+        "message": "3D Secure verification failed. Please contact your bank."
+      },
+      "default": {
+        "title": "Payment Failed",
+        "message": "An error occurred while processing your payment. Please try again."
+      }
+    }
+  },
+  "history": {
+    "title": "History",
+    "activations": "Activations",
+    "total": "Total",
+    "successful": "Successful",
+    "spent": "Spent",
+    "filters": {
+      "all": "All",
+      "successful": "Successful",
+      "expired": "Expired",
+      "canceled": "Canceled"
+    },
+    "noRecords": "No records yet",
+    "firstActivation": "Make your first activation",
+    "status": {
+      "successful": "Successful",
+      "expired": "Expired",
+      "canceled": "Canceled"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account settings and preferences",
+    "sections": {
+      "profile": "Profile",
+      "profileDesc": "Your account information",
+      "security": "Security",
+      "securityDesc": "Password and login",
+      "notifications": "Notifications",
+      "notificationsDesc": "Email preferences",
+      "appearance": "Appearance",
+      "appearanceDesc": "Theme and language",
+      "support": "Support",
+      "supportDesc": "Help and contact"
+    },
+    "profile": {
+      "accountInfo": "Account Information",
+      "email": "Email Address",
+      "change": "Change",
+      "username": "Username",
+      "notSet": "Not set",
+      "registrationDate": "Registration Date",
+      "lastLogin": "Last Login"
+    },
+    "security": {
+      "googleAccount": "Google Account Login",
+      "googleAccountDesc": "You are signed in with Google. Password changes can be made through Google Security.",
+      "googleSecurity": "Google Security Settings",
+      "changeEmail": "Change Email",
+      "changeEmailDesc": "Update the email address linked to your account",
+      "currentEmail": "Current: {email}",
+      "verificationSent": "Verification email sent!",
+      "verificationSentDesc": "Click the link sent to your new email address to complete the change.",
+      "newEmail": "New Email Address",
+      "newEmailPlaceholder": "new@email.com",
+      "currentPassword": "Current Password",
+      "changePassword": "Change Password",
+      "changePasswordDesc": "Update your password to keep your account secure",
+      "strongPasswordHint": "Choose a strong password",
+      "passwordUpdated": "Password updated successfully",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "passwordStrength": {
+        "weak": "Weak",
+        "medium": "Medium",
+        "strong": "Strong"
+      },
+      "errors": {
+        "wrongPassword": "Current password is incorrect",
+        "reauth": "Please sign in again for security",
+        "emailInUse": "This email is already in use",
+        "weakPassword": "Choose a stronger password (at least 6 characters)",
+        "invalidEmail": "Invalid email address",
+        "minPassword": "Password must be at least 6 characters",
+        "passwordMismatch": "Passwords do not match"
+      },
+      "signOut": "Sign Out",
+      "signOutDesc": "Sign out of your account securely"
+    },
+    "notifications": {
+      "title": "Email Notifications",
+      "subtitle": "Choose when you want to receive emails",
+      "smsNotifications": "SMS Code Notifications",
+      "smsNotificationsDesc": "Get notified when you receive a new SMS code",
+      "balanceAlerts": "Balance Alerts",
+      "balanceAlertsDesc": "Get alerted when your balance is low",
+      "promotions": "Campaigns and Promotions",
+      "promotionsDesc": "Stay informed about special offers and discounts",
+      "securityNotifications": "Security Notifications",
+      "securityNotificationsDesc": "Get notified about important account changes",
+      "localStorageNote": "Notification preferences are currently stored locally."
+    },
+    "appearance": {
+      "theme": "Theme",
+      "themeDesc": "Customize the app appearance",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "darkThemeNote": "Dark theme coming soon.",
+      "language": "Language",
+      "languageDesc": "Select app language",
+      "turkish": "Turkish",
+      "english": "English",
+      "defaultLanguage": "Default language"
+    },
+    "support": {
+      "title": "Help and Support",
+      "emailContact": "Email Contact",
+      "faq": "Frequently Asked Questions",
+      "faqDesc": "Answers to common questions",
+      "legal": "Legal",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "appInfo": "App Information",
+      "version": "Version",
+      "platform": "Platform",
+      "web": "Web",
+      "mobileApps": "Mobile Apps",
+      "mobileAppsDesc": "Use Smaryo on your mobile devices"
+    }
+  },
+  "errors": {
+    "generic": "An error occurred",
+    "loginFailed": "An error occurred while signing in",
+    "registerFailed": "An error occurred while signing up",
+    "googleLoginFailed": "An error occurred while signing in with Google",
+    "logoutFailed": "An error occurred while signing out",
+    "passwordResetFailed": "An error occurred while sending password reset email",
+    "emailNotFound": "User email not found",
+    "emailUpdateFailed": "An error occurred while updating email",
+    "passwordUpdateFailed": "An error occurred while updating password"
+  },
+  "seo": {
+    "title": "Smaryo - SMS Verification Service | Secure Virtual Numbers",
+    "description": "Secure and fast SMS verification service. Easily verify your WhatsApp, Telegram, Instagram accounts with temporary phone numbers from 170+ countries. Instant delivery, affordable prices.",
+    "ogTitle": "Smaryo - Secure SMS Verification Service",
+    "ogDescription": "Instantly verify your accounts with temporary phone numbers from 170+ countries."
+  }
+}

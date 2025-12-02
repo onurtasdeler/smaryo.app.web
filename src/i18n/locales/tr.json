@@ -1,0 +1,480 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "cancel": "Vazgeç",
+    "confirm": "Onayla",
+    "save": "Kaydet",
+    "back": "Geri",
+    "next": "İleri",
+    "continue": "Devam",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "close": "Kapat",
+    "or": "veya",
+    "yes": "Evet",
+    "no": "Hayır",
+    "price": "Fiyat"
+  },
+  "nav": {
+    "features": "Özellikler",
+    "pricing": "Fiyatlar",
+    "faq": "SSS",
+    "login": "Giriş",
+    "getStarted": "Başla"
+  },
+  "auth": {
+    "login": "Giriş Yap",
+    "register": "Kayıt Ol",
+    "logout": "Çıkış Yap",
+    "email": "E-posta adresi",
+    "emailPlaceholder": "E-posta adresiniz",
+    "password": "Şifre",
+    "passwordPlaceholder": "Şifreniz",
+    "createPassword": "Şifre oluşturun",
+    "confirmPassword": "Şifreyi onaylayın",
+    "repeatPassword": "Şifreyi tekrarlayın",
+    "forgotPassword": "Şifremi unuttum",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "googleLogin": "Google ile devam et",
+    "googleRegister": "Google ile kayıt ol",
+    "welcome": "Hoş geldiniz",
+    "welcomeBack": "Tekrar hoş geldiniz",
+    "continueToSignIn": "Devam etmek için giriş yapın",
+    "createAccount": "Hesap oluşturun",
+    "registrationTakesMinute": "Kayıt olmak sadece bir dakika sürer",
+    "termsAccept": "Okudum ve kabul ediyorum:",
+    "termsOfService": "Kullanım Şartları",
+    "privacyPolicy": "Gizlilik Politikası",
+    "and": "ve",
+    "passwordStrength": {
+      "weak": "Zayıf",
+      "medium": "Orta",
+      "strong": "Güçlü"
+    },
+    "brandPanel": {
+      "smsVerification": "SMS doğrulama",
+      "nowEasy": "artık çok kolay.",
+      "verifyAccountsSafely": "Sanal numaralarla hesaplarınızı güvenle doğrulayın.",
+      "fastReliableAffordable": "Hızlı, güvenilir ve uygun fiyatlı.",
+      "getStartedFree": "Hemen başlayın,",
+      "free": "ücretsiz.",
+      "instantAccount": "Anında hesap oluşturma",
+      "countriesOption": "50+ ülkeden numara seçeneği",
+      "supportSecurity": "7/24 destek ve güvenlik"
+    },
+    "errors": {
+      "invalidCredentials": "E-posta veya şifre hatalı",
+      "tooManyAttempts": "Çok fazla deneme. Lütfen bekleyin.",
+      "invalidEmail": "Geçersiz e-posta adresi",
+      "emailInUse": "Bu e-posta adresi zaten kullanılıyor",
+      "weakPassword": "Daha güçlü bir şifre seçin",
+      "passwordMismatch": "Şifreler eşleşmiyor",
+      "minPassword": "Şifre en az 6 karakter olmalıdır",
+      "popupClosed": "Giriş penceresi kapatıldı",
+      "termsRequired": "Kullanım şartlarını kabul etmelisiniz",
+      "generic": "Bir hata oluştu"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "SMS Doğrulama Servisi",
+      "title": "Güvenli doğrulama",
+      "titleHighlight": "saniyeler içinde.",
+      "description": "170+ ülkeden geçici telefon numaraları ile hesaplarınızı anında doğrulayın.",
+      "cta": "Hemen Başla",
+      "howItWorks": "Nasıl Çalışır?"
+    },
+    "stats": {
+      "countries": "Ülke",
+      "verifications": "Doğrulama",
+      "success": "Başarı"
+    },
+    "features": {
+      "badge": "Özellikler",
+      "title": "Neden",
+      "titleHighlight": "Smaryo?",
+      "globalCoverage": "Global Kapsama",
+      "globalCoverageDesc": "Dünyanın her yerinden, 170'den fazla ülkeden numara desteği.",
+      "instantDelivery": "Anında Teslimat",
+      "instantDeliveryDesc": "Kodlar saniyeler içinde panelinize düşer.",
+      "fullPrivacy": "Tam Gizlilik",
+      "fullPrivacyDesc": "Kişisel numaranızı paylaşmadan güvenle işlem yapın.",
+      "affordablePrices": "Uygun Fiyatlar",
+      "affordablePricesDesc": "Piyasadaki en rekabetçi fiyatlar ve bonuslar.",
+      "easyInterface": "Kolay Arayüz",
+      "easyInterfaceDesc": "Her cihazda sorunsuz çalışan modern panel.",
+      "popularServices": "Popüler Servisler",
+      "popularServicesDesc": "Telegram, WhatsApp, Google ve daha fazlası"
+    },
+    "pricing": {
+      "badge": "Fiyatlandırma",
+      "title": "Yükle,",
+      "titleHighlight": "kazan.",
+      "subtitle": "Yüksek yüklemelerde ekstra bonus kazanın.",
+      "popular": "Popüler",
+      "bonus": "bonus",
+      "total": "Toplam"
+    },
+    "cta": {
+      "title": "Hemen başlayın",
+      "description": "Ücretsiz hesap oluşturun ve saniyeler içinde ilk doğrulamanızı tamamlayın.",
+      "button": "Ücretsiz Kayıt"
+    },
+    "footer": {
+      "description": "170+ ülkeden geçici telefon numaraları ile güvenli SMS doğrulama hizmeti.",
+      "links": "Bağlantılar",
+      "login": "Giriş Yap",
+      "register": "Kayıt Ol",
+      "terms": "Kullanım Şartları",
+      "privacy": "Gizlilik Politikası",
+      "mobileApp": "Mobil Uygulama",
+      "mobileAppDesc": "Smaryo'yu mobil cihazınıza indirin.",
+      "download": "İndir",
+      "appStore": "App Store",
+      "googlePlay": "Google Play",
+      "copyright": "Tüm hakları saklıdır."
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "defaultUser": "Kullanıcı",
+    "greeting": {
+      "morning": "Günaydın",
+      "afternoon": "İyi günler",
+      "evening": "İyi akşamlar"
+    },
+    "balance": "Bakiye",
+    "topUp": "Yükle",
+    "total": "Toplam",
+    "activations": "Aktivasyon",
+    "success": "Başarı",
+    "successRate": "Başarı oranı",
+    "active": "Aktif",
+    "pendingNumbers": "Bekleyen numara",
+    "noPending": "Bekleyen yok",
+    "lowBalance": "Düşük Bakiye Uyarısı",
+    "lowBalanceWarning": "Bakiyeniz {amount} seviyesinde. Kesintisiz hizmet için bakiye yükleyin.",
+    "activeNumbers": "Aktif Numaralar",
+    "refresh": "Yenile",
+    "smsWaiting": "SMS bekleniyor...",
+    "expired": "Süre doldu",
+    "timeExpired": "Süre doldu",
+    "quickAction": "Hızlı İşlem",
+    "allServices": "Tüm servisler",
+    "searchPlaceholder": "Servis ara... (Telegram, WhatsApp, Instagram...)",
+    "noResults": "\"{query}\" için sonuç bulunamadı",
+    "favorites": "Favorileriniz",
+    "quickGet": "Hızlı al",
+    "recentActivity": "Son İşlemler",
+    "seeAll": "Tümünü gör",
+    "noActivations": "Henüz aktivasyon yok",
+    "getFirstNumber": "İlk numaranızı alın",
+    "status": {
+      "completed": "Tamamlandı",
+      "pending": "Bekliyor",
+      "expired": "Süre doldu",
+      "cancelled": "İptal"
+    },
+    "howItWorks": {
+      "title": "Nasıl Çalışır?",
+      "step1": { "num": "01", "title": "Servis Seç", "desc": "Doğrulama yapacağınız platformu seçin" },
+      "step2": { "num": "02", "title": "Ülke Seç", "desc": "Telefon numarası konumunu belirleyin" },
+      "step3": { "num": "03", "title": "Numara Al", "desc": "Saniyeler içinde numaranız hazır" },
+      "step4": { "num": "04", "title": "Kod Al", "desc": "SMS kodunu alın ve işlemi tamamlayın" }
+    }
+  },
+  "activation": {
+    "title": "Aktivasyon",
+    "selectService": "Servis Seçin",
+    "searchPlaceholder": "Servis ara... (örn: Telegram, WhatsApp, Google)",
+    "noServiceFound": "Servis bulunamadı",
+    "selectCountry": "Ülke Seç",
+    "chooseCountry": "Ülke Seçin",
+    "loadingPrices": "Fiyatlar yükleniyor...",
+    "noCountries": "Bu servis için ülke bulunamadı",
+    "price": "Fiyat",
+    "getNumber": "Numarayı Al",
+    "gettingNumber": "Numara alınıyor...",
+    "waitingSms": "SMS Bekleniyor",
+    "smsReceived": "SMS Alındı!",
+    "complete": "Tamamla",
+    "completing": "Tamamlanıyor...",
+    "cancel": "İptal Et",
+    "canceling": "İptal Ediliyor...",
+    "newActivation": "Yeni Aktivasyon",
+    "topUpBalance": "Bakiye Yükle",
+    "status": {
+      "completed": "Aktivasyon Tamamlandı",
+      "canceled": "Aktivasyon İptal Edildi",
+      "timeout": "Süre Doldu",
+      "smsSuccess": "SMS başarıyla alındı.",
+      "refunded": "Bakiyeniz iade edildi.",
+      "smsNotReceived": "SMS alınamadı, bakiyeniz iade edildi."
+    }
+  },
+  "topup": {
+    "title": "Bakiye Yükle",
+    "pageLabel": "Bakiye Yönetimi",
+    "currentBalance": "Mevcut Bakiyeniz",
+    "active": "Aktif",
+    "selectPackage": "Yükleme Paketi Seçin",
+    "selectPackageSubtitle": "Daha fazla yükle, daha fazla kazan",
+    "customAmount": "Özel Tutar",
+    "customAmountDesc": "Kendi tutarınızı belirleyin",
+    "enterAmount": "Tutar girin",
+    "minAmount": "Min $1",
+    "bonusLevel": "Bonus Seviyeniz",
+    "bonusActive": "+%{rate} Bonus Aktif",
+    "noBonus": "Bonus Yok",
+    "bonus": "Bonus",
+    "totalBalance": "Toplam Bakiye",
+    "trustBadges": {
+      "securePayment": "Güvenli Ödeme",
+      "instantDeposit": "Anında Yükleme",
+      "support247": "7/24 Destek"
+    },
+    "summary": {
+      "deposit": "Yükleme",
+      "bonus": "Bonus",
+      "total": "Toplam"
+    },
+    "payButton": "{amount} Öde",
+    "processing": "İşleniyor...",
+    "redirecting": "Ödeme sayfasına yönlendiriliyorsunuz...",
+    "dontClose": "Lütfen sayfayı kapatmayın.",
+    "errors": {
+      "pleaseWait": "Lütfen birkaç saniye bekleyin",
+      "minAmount": "Minimum yükleme tutarı $1",
+      "pleaseLogin": "Lütfen giriş yapın",
+      "paymentFailed": "Ödeme başlatılamadı",
+      "noPaymentUrl": "Ödeme URL'si alınamadı"
+    },
+    "packages": {
+      "starter": "Başlangıç",
+      "popular": "Popüler",
+      "value": "Avantajlı",
+      "premium": "Premium"
+    },
+    "bonusTiers": {
+      "tier0": "Bonus Yok",
+      "tier5": "%5 Bonus",
+      "tier10": "%10 Bonus",
+      "tier15": "%15 Bonus",
+      "tier20": "%20 Bonus"
+    }
+  },
+  "topupSuccess": {
+    "verifying": "Ödeme doğrulanıyor...",
+    "pleaseWait": "Lütfen bekleyin, bu birkaç saniye sürebilir.",
+    "paymentReceived": "Ödeme Alındı",
+    "paymentReceivedDesc": "Ödemeniz alındı. Bakiyeniz birkaç dakika içinde güncellenecek.",
+    "transactionDetails": "İşlem Detayları",
+    "amount": "Tutar",
+    "bonus": "Bonus",
+    "total": "Toplam",
+    "checkBalance": "Bakiyeyi Kontrol Et",
+    "dontWorry": "Endişelenmeyin - ödemeniz güvende.",
+    "contactSupport": "Sorun devam ederse bizimle iletişime geçin:",
+    "verificationFailed": "Doğrulama Başarısız",
+    "verificationFailedDesc": "Ödemeniz doğrulanamadı. Lütfen tekrar deneyin.",
+    "tryAgain": "Tekrar Dene",
+    "home": "Ana Sayfa",
+    "success": "Ödeme Başarılı!",
+    "successDesc": "Bakiyeniz başarıyla yüklendi.",
+    "summary": "İşlem Özeti",
+    "depositAmount": "Yüklenen Tutar",
+    "addedBalance": "Eklenen Bakiye",
+    "newBalance": "Yeni Bakiyeniz",
+    "startActivation": "Aktivasyona Başla"
+  },
+  "topup.failed": {
+    "referenceCode": "Referans Kodu",
+    "transactionAmount": "İşlem Tutarı",
+    "tryAgain": "Tekrar Dene",
+    "home": "Ana Sayfa",
+    "needHelp": "Yardıma mı ihtiyacınız var?",
+    "cardSafe": "Kart bilgileriniz güvende. Başarısız ödemelerde kartınızdan herhangi bir tutar çekilmez.",
+    "errors": {
+      "cancelled": {
+        "title": "Ödeme İptal Edildi",
+        "message": "Ödeme işlemini iptal ettiniz. İstediğiniz zaman tekrar deneyebilirsiniz."
+      },
+      "declined": {
+        "title": "Kart Reddedildi",
+        "message": "Bankanız ödemeyi reddetti. Lütfen kart bilgilerinizi kontrol edin veya başka bir kart deneyin."
+      },
+      "expired": {
+        "title": "Oturum Süresi Doldu",
+        "message": "Ödeme oturumunun süresi doldu. Lütfen tekrar deneyin."
+      },
+      "insufficientFunds": {
+        "title": "Yetersiz Bakiye",
+        "message": "Kartınızda yeterli bakiye bulunmuyor. Lütfen başka bir kart deneyin."
+      },
+      "networkError": {
+        "title": "Bağlantı Hatası",
+        "message": "Bir bağlantı hatası oluştu. Lütfen internet bağlantınızı kontrol edip tekrar deneyin."
+      },
+      "verificationFailed": {
+        "title": "Doğrulama Başarısız",
+        "message": "Ödemeniz doğrulanamadı. Lütfen tekrar deneyin veya destek ile iletişime geçin."
+      },
+      "processingError": {
+        "title": "İşlem Hatası",
+        "message": "Ödeme işlenirken bir hata oluştu. Bakiyeniz çekilmediyse tekrar deneyin."
+      },
+      "cardError": {
+        "title": "Kart Hatası",
+        "message": "Kart bilgilerinizde bir sorun var. Lütfen bilgilerinizi kontrol edin."
+      },
+      "authenticationFailed": {
+        "title": "3D Secure Doğrulama Başarısız",
+        "message": "3D Secure doğrulaması başarısız oldu. Lütfen bankanızla iletişime geçin."
+      },
+      "default": {
+        "title": "Ödeme Başarısız",
+        "message": "Ödeme işlenirken bir hata oluştu. Lütfen tekrar deneyin."
+      }
+    }
+  },
+  "history": {
+    "title": "Geçmiş",
+    "activations": "Aktivasyonlar",
+    "total": "Toplam",
+    "successful": "Başarılı",
+    "spent": "Harcanan",
+    "filters": {
+      "all": "Tümü",
+      "successful": "Başarılı",
+      "expired": "Süresi Doldu",
+      "canceled": "İptal Edildi"
+    },
+    "noRecords": "Henüz kayıt yok",
+    "firstActivation": "İlk aktivasyonunuzu yapın",
+    "status": {
+      "successful": "Başarılı",
+      "expired": "Süresi Doldu",
+      "canceled": "İptal Edildi"
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "subtitle": "Hesap ayarlarınızı ve tercihlerinizi yönetin",
+    "sections": {
+      "profile": "Profil",
+      "profileDesc": "Hesap bilgileriniz",
+      "security": "Güvenlik",
+      "securityDesc": "Şifre ve giriş",
+      "notifications": "Bildirimler",
+      "notificationsDesc": "E-posta tercihleri",
+      "appearance": "Görünüm",
+      "appearanceDesc": "Tema ve dil",
+      "support": "Destek",
+      "supportDesc": "Yardım ve iletişim"
+    },
+    "profile": {
+      "accountInfo": "Hesap Bilgileri",
+      "email": "E-posta Adresi",
+      "change": "Değiştir",
+      "username": "Kullanıcı Adı",
+      "notSet": "Belirlenmemiş",
+      "registrationDate": "Kayıt Tarihi",
+      "lastLogin": "Son Giriş"
+    },
+    "security": {
+      "googleAccount": "Google Hesabı ile Giriş",
+      "googleAccountDesc": "Google ile giriş yaptınız. Şifre değişiklikleri Google Güvenlik ayarlarından yapılabilir.",
+      "googleSecurity": "Google Güvenlik Ayarları",
+      "changeEmail": "E-posta Değiştir",
+      "changeEmailDesc": "Hesabınıza bağlı e-posta adresini güncelleyin",
+      "currentEmail": "Mevcut: {email}",
+      "verificationSent": "Doğrulama e-postası gönderildi!",
+      "verificationSentDesc": "Değişikliği tamamlamak için yeni e-posta adresinize gönderilen bağlantıya tıklayın.",
+      "newEmail": "Yeni E-posta Adresi",
+      "newEmailPlaceholder": "yeni@eposta.com",
+      "currentPassword": "Mevcut Şifre",
+      "changePassword": "Şifre Değiştir",
+      "changePasswordDesc": "Hesabınızı güvende tutmak için şifrenizi güncelleyin",
+      "strongPasswordHint": "Güçlü bir şifre seçin",
+      "passwordUpdated": "Şifre başarıyla güncellendi",
+      "newPassword": "Yeni Şifre",
+      "confirmPassword": "Yeni Şifreyi Onaylayın",
+      "passwordStrength": {
+        "weak": "Zayıf",
+        "medium": "Orta",
+        "strong": "Güçlü"
+      },
+      "errors": {
+        "wrongPassword": "Mevcut şifre hatalı",
+        "reauth": "Güvenlik için lütfen tekrar giriş yapın",
+        "emailInUse": "Bu e-posta adresi zaten kullanılıyor",
+        "weakPassword": "Daha güçlü bir şifre seçin (en az 6 karakter)",
+        "invalidEmail": "Geçersiz e-posta adresi",
+        "minPassword": "Şifre en az 6 karakter olmalıdır",
+        "passwordMismatch": "Şifreler eşleşmiyor"
+      },
+      "signOut": "Çıkış Yap",
+      "signOutDesc": "Hesabınızdan güvenli şekilde çıkış yapın"
+    },
+    "notifications": {
+      "title": "E-posta Bildirimleri",
+      "subtitle": "Ne zaman e-posta almak istediğinizi seçin",
+      "smsNotifications": "SMS Kodu Bildirimleri",
+      "smsNotificationsDesc": "Yeni bir SMS kodu aldığınızda bildirim alın",
+      "balanceAlerts": "Bakiye Uyarıları",
+      "balanceAlertsDesc": "Bakiyeniz düşük olduğunda uyarı alın",
+      "promotions": "Kampanyalar ve Promosyonlar",
+      "promotionsDesc": "Özel teklifler ve indirimlerden haberdar olun",
+      "securityNotifications": "Güvenlik Bildirimleri",
+      "securityNotificationsDesc": "Önemli hesap değişiklikleri hakkında bildirim alın",
+      "localStorageNote": "Bildirim tercihleri şu anda yerel olarak saklanıyor."
+    },
+    "appearance": {
+      "theme": "Tema",
+      "themeDesc": "Uygulama görünümünü özelleştirin",
+      "light": "Açık",
+      "dark": "Koyu",
+      "system": "Sistem",
+      "darkThemeNote": "Koyu tema yakında.",
+      "language": "Dil",
+      "languageDesc": "Uygulama dilini seçin",
+      "turkish": "Türkçe",
+      "english": "İngilizce",
+      "defaultLanguage": "Varsayılan dil"
+    },
+    "support": {
+      "title": "Yardım ve Destek",
+      "emailContact": "E-posta İletişimi",
+      "faq": "Sıkça Sorulan Sorular",
+      "faqDesc": "Yaygın sorulara cevaplar",
+      "legal": "Yasal",
+      "privacyPolicy": "Gizlilik Politikası",
+      "termsOfService": "Kullanım Şartları",
+      "appInfo": "Uygulama Bilgileri",
+      "version": "Sürüm",
+      "platform": "Platform",
+      "web": "Web",
+      "mobileApps": "Mobil Uygulamalar",
+      "mobileAppsDesc": "Smaryo'yu mobil cihazlarınızda kullanın"
+    }
+  },
+  "errors": {
+    "generic": "Bir hata oluştu",
+    "loginFailed": "Giriş yapılırken bir hata oluştu",
+    "registerFailed": "Kayıt olurken bir hata oluştu",
+    "googleLoginFailed": "Google ile giriş yapılırken bir hata oluştu",
+    "logoutFailed": "Çıkış yapılırken bir hata oluştu",
+    "passwordResetFailed": "Şifre sıfırlama e-postası gönderilirken bir hata oluştu",
+    "emailNotFound": "Kullanıcı e-postası bulunamadı",
+    "emailUpdateFailed": "E-posta güncellenirken bir hata oluştu",
+    "passwordUpdateFailed": "Şifre güncellenirken bir hata oluştu"
+  },
+  "seo": {
+    "title": "Smaryo - SMS Doğrulama Hizmeti | Güvenli Sanal Numara",
+    "description": "Güvenli ve hızlı SMS doğrulama hizmeti. 170+ ülkeden geçici telefon numaraları ile WhatsApp, Telegram, Instagram hesaplarınızı kolayca doğrulayın. Anında teslimat, uygun fiyatlar.",
+    "ogTitle": "Smaryo - Güvenli SMS Doğrulama Hizmeti",
+    "ogDescription": "170+ ülkeden geçici telefon numaraları ile hesaplarınızı anında doğrulayın."
+  }
+}

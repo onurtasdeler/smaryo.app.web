@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTranslation } from '@/i18n/client'
 import { formatCurrency } from '@/lib/utils'
 import Link from 'next/link'
 import { ArrowRight, Copy, Check, Search, X, Loader2, ChevronDown, Globe } from 'lucide-react'
@@ -22,6 +23,7 @@ type ActivationState = 'idle' | 'purchasing' | 'waiting' | 'received' | 'finishe
 export default function ActivationPage() {
   const searchParams = useSearchParams()
   const { profile } = useAuth()
+  const { t, locale } = useTranslation()
 
   // Selection state
   const [selectedService, setSelectedService] = useState<string>(searchParams.get('service') || '')
@@ -74,7 +76,7 @@ export default function ActivationPage() {
   const handlePurchase = useCallback(async () => {
     if (!selectedService || !selectedCountry) return
 
-    const price = pricing?.priceTry || 0
+    const price = pricing?.priceUsd || 0
     if ((profile?.balance || 0) < price) {
       return
     }
@@ -143,7 +145,7 @@ export default function ActivationPage() {
   }
 
   // Use price from dropdown data (faster) or pricing API (fallback)
-  const price = selectedCountryDetails?.priceTry || pricing?.priceTry || 0
+  const price = selectedCountryDetails?.priceUsd || pricing?.priceUsd || 0
   const hasEnoughBalance = (profile?.balance || 0) >= price
   const canPurchase = selectedService && selectedCountry && hasEnoughBalance && activationState === 'idle' && price > 0
 
@@ -151,9 +153,9 @@ export default function ActivationPage() {
     <div className="max-w-7xl mx-auto px-4 py-6">
       {/* Header */}
       <header className="mb-6 dash-animate">
-        <p className="dash-stat-label mb-1">Aktivasyon</p>
+        <p className="dash-stat-label mb-1">{t('activation.title')}</p>
         <h1 className="text-2xl sm:text-3xl font-light text-foreground">
-          Servis Seçin
+          {t('activation.selectService')}
         </h1>
       </header>
 
@@ -164,7 +166,7 @@ export default function ActivationPage() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Servis ara... (örn: Telegram, WhatsApp, Google)"
+          placeholder={t('activation.searchPlaceholder')}
           className="w-full h-12 pl-12 pr-12 bg-card border border-border text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none transition-colors"
         />
         {searchQuery && (
@@ -181,7 +183,7 @@ export default function ActivationPage() {
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-px bg-border dash-animate dash-animate-delay-2">
         {filteredServices.length === 0 ? (
           <div className="col-span-full bg-card p-12 text-center">
-            <p className="text-muted-foreground">Servis bulunamadı</p>
+            <p className="text-muted-foreground">{t('activation.noServiceFound')}</p>
           </div>
         ) : (
           filteredServices.map((service) => (
@@ -223,7 +225,7 @@ export default function ActivationPage() {
                     <p className="font-medium text-foreground">
                       {selectedServiceDetails.name}
                     </p>
-                    <p className="text-xs text-muted-foreground">Ülke seçin</p>
+                    <p className="text-xs text-muted-foreground">{t('activation.selectCountry')}</p>
                   </div>
                 </div>
 
@@ -241,7 +243,7 @@ export default function ActivationPage() {
                     ) : (
                       <>
                         <Globe className="w-4 h-4 text-muted-foreground" />
-                        <span className="flex-1 text-left text-sm text-muted-foreground">Ülke Seç</span>
+                        <span className="flex-1 text-left text-sm text-muted-foreground">{t('activation.chooseCountry')}</span>
                       </>
                     )}
                     <ChevronDown className={`w-4 h-4 transition-transform ${showCountryDropdown ? 'rotate-180' : ''}`} />
@@ -257,11 +259,11 @@ export default function ActivationPage() {
                         {pricesLoading ? (
                           <div className="p-4 text-center">
                             <Loader2 className="w-5 h-5 animate-spin mx-auto" />
-                            <p className="text-xs text-muted-foreground mt-2">Fiyatlar yükleniyor...</p>
+                            <p className="text-xs text-muted-foreground mt-2">{t('activation.loadingPrices')}</p>
                           </div>
                         ) : !countriesWithPrices?.length ? (
                           <div className="p-4 text-center text-muted-foreground text-sm">
-                            Bu servis için ülke bulunamadı
+                            {t('activation.noCountries')}
                           </div>
                         ) : (
                           countriesWithPrices.map((country) => (
@@ -280,7 +282,7 @@ export default function ActivationPage() {
                               <span className="flex-1">{country.name}</span>
                               <div className="text-right">
                                 <span className="font-medium text-foreground">
-                                  {formatCurrency(country.priceTry)}
+                                  {formatCurrency(country.priceUsd, locale)}
                                 </span>
                                 <span className="text-xs text-muted-foreground ml-1">
                                   ({country.count})
@@ -298,9 +300,9 @@ export default function ActivationPage() {
                 <div className="flex items-center gap-4 w-full sm:w-auto">
                   {selectedCountry && (
                     <div className="text-right">
-                      <p className="text-xs text-muted-foreground">Fiyat</p>
+                      <p className="text-xs text-muted-foreground">{t('activation.price')}</p>
                       <p className="text-lg font-medium text-foreground">
-                        {price > 0 ? formatCurrency(price) : '—'}
+                        {price > 0 ? formatCurrency(price, locale) : '—'}
                       </p>
                     </div>
                   )}
@@ -310,11 +312,11 @@ export default function ActivationPage() {
                       disabled
                       className="dash-btn justify-center flex-1 sm:flex-none opacity-50 cursor-not-allowed"
                     >
-                      Ülke Seçin
+                      {t('activation.chooseCountry')}
                     </button>
                   ) : !hasEnoughBalance && price > 0 ? (
-                    <Link href="/topup" className="dash-btn justify-center flex-1 sm:flex-none">
-                      Bakiye Yükle <ArrowRight className="w-4 h-4" />
+                    <Link href={`/${locale}/topup`} className="dash-btn justify-center flex-1 sm:flex-none">
+                      {t('activation.topUpBalance')} <ArrowRight className="w-4 h-4" />
                     </Link>
                   ) : (
                     <button
@@ -322,7 +324,7 @@ export default function ActivationPage() {
                       disabled={!canPurchase}
                       className="dash-btn justify-center flex-1 sm:flex-none disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Numarayı Al <ArrowRight className="w-4 h-4" />
+                      {t('activation.getNumber')} <ArrowRight className="w-4 h-4" />
                     </button>
                   )}
                 </div>
@@ -333,7 +335,7 @@ export default function ActivationPage() {
             {activationState === 'purchasing' && (
               <div className="flex items-center justify-center gap-3 py-2">
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="text-muted-foreground">Numara alınıyor...</span>
+                <span className="text-muted-foreground">{t('activation.gettingNumber')}</span>
               </div>
             )}
 
@@ -345,7 +347,7 @@ export default function ActivationPage() {
                     <Loader2 className="w-5 h-5 animate-spin text-blue-500" />
                   </div>
                   <div>
-                    <p className="font-medium text-foreground">SMS Bekleniyor</p>
+                    <p className="font-medium text-foreground">{t('activation.waitingSms')}</p>
                     <div className="flex items-center gap-2">
                       <code className="text-sm font-mono text-muted-foreground">
                         +{activation.phone}
@@ -373,7 +375,7 @@ export default function ActivationPage() {
                     disabled={cancelActivation.isPending}
                     className="dash-btn-secondary justify-center flex-1 sm:flex-none"
                   >
-                    {cancelActivation.isPending ? 'İptal Ediliyor...' : 'İptal Et'}
+                    {cancelActivation.isPending ? t('activation.canceling') : t('activation.cancel')}
                   </button>
                 </div>
               </div>
@@ -387,7 +389,7 @@ export default function ActivationPage() {
                     <Check className="w-5 h-5 text-green-500" />
                   </div>
                   <div>
-                    <p className="font-medium text-green-500">SMS Alındı!</p>
+                    <p className="font-medium text-green-500">{t('activation.smsReceived')}</p>
                     <div className="flex items-center gap-2">
                       <code className="text-2xl font-mono font-bold text-foreground">
                         {activation.sms[0].code}
@@ -412,7 +414,7 @@ export default function ActivationPage() {
                     disabled={finishActivation.isPending}
                     className="dash-btn justify-center flex-1 sm:flex-none"
                   >
-                    {finishActivation.isPending ? 'Tamamlanıyor...' : 'Tamamla'}
+                    {finishActivation.isPending ? t('activation.completing') : t('activation.complete')}
                   </button>
                 </div>
               </div>
@@ -429,14 +431,14 @@ export default function ActivationPage() {
                   </span>
                   <div>
                     <p className="font-medium text-foreground">
-                      {activationState === 'finished' && 'Aktivasyon Tamamlandı'}
-                      {activationState === 'canceled' && 'Aktivasyon İptal Edildi'}
-                      {activationState === 'timeout' && 'Süre Doldu'}
+                      {activationState === 'finished' && t('activation.status.completed')}
+                      {activationState === 'canceled' && t('activation.status.canceled')}
+                      {activationState === 'timeout' && t('activation.status.timeout')}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      {activationState === 'finished' && 'SMS başarıyla alındı.'}
-                      {activationState === 'canceled' && 'Bakiyeniz iade edildi.'}
-                      {activationState === 'timeout' && 'SMS alınamadı, bakiyeniz iade edildi.'}
+                      {activationState === 'finished' && t('activation.status.smsSuccess')}
+                      {activationState === 'canceled' && t('activation.status.refunded')}
+                      {activationState === 'timeout' && t('activation.status.smsNotReceived')}
                     </p>
                   </div>
                 </div>
@@ -444,7 +446,7 @@ export default function ActivationPage() {
                   onClick={handleNewActivation}
                   className="dash-btn justify-center w-full sm:w-auto"
                 >
-                  Yeni Aktivasyon <ArrowRight className="w-4 h-4" />
+                  {t('activation.newActivation')} <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             )}

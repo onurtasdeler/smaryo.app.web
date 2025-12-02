@@ -1,0 +1,25 @@
+# Smaryo SMS Verification Service
+# https://smaryo.app
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /dashboard/
+Disallow: /activation/
+Disallow: /history/
+Disallow: /settings/
+Disallow: /topup/
+
+# Allow specific public pages
+Allow: /login
+Allow: /register
+
+# Sitemap
+Sitemap: https://smaryo.app/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

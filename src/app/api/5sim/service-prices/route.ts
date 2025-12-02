@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
         flag: getCountryFlag(iso),
         ...priceInfo,
       }))
-      .sort((a, b) => a.priceTry - b.priceTry) // Sort by price ascending
+      .sort((a, b) => a.priceUsd - b.priceUsd) // Sort by price ascending
 
     return NextResponse.json({
       success: true,

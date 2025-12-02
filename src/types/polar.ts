@@ -1,39 +1,53 @@
 // Polar payment types for VerifyNumber web platform
+// Currency: USD (United States Dollar)
 
 export interface BalancePackage {
   id: string
-  amount: number  // TRY amount
+  amount: number  // USD amount
   bonus: number   // Bonus percentage
   totalCredits: number  // amount + bonus amount
   productId?: string  // Polar product ID (set after creating products)
   priceId?: string    // Polar price ID
 }
 
-// Balance packages with bonus rates as defined in PRD
+// Polar Sandbox Product IDs - will be updated after creating USD products
+export const POLAR_PRODUCT_IDS = {
+  balance_5: '',   // $5 package
+  balance_15: '',  // $15 package
+  balance_30: '',  // $30 package
+  balance_60: '',  // $60 package
+} as const
+
+// Balance packages with bonus rates (USD)
+// $5 = 5% bonus, $15 = 10% bonus, $30 = 15% bonus, $60 = 20% bonus
 export const BALANCE_PACKAGES: BalancePackage[] = [
   {
-    id: 'balance_100',
-    amount: 100,
+    id: 'balance_5',
+    amount: 5,
     bonus: 5,
-    totalCredits: 105,  // 100 + 5%
+    totalCredits: 5.25,  // $5 + 5% = $5.25
+    productId: POLAR_PRODUCT_IDS.balance_5,
   },
   {
-    id: 'balance_250',
-    amount: 250,
+    id: 'balance_15',
+    amount: 15,
     bonus: 10,
-    totalCredits: 275,  // 250 + 10%
+    totalCredits: 16.50,  // $15 + 10% = $16.50
+    productId: POLAR_PRODUCT_IDS.balance_15,
   },
   {
-    id: 'balance_500',
-    amount: 500,
+    id: 'balance_30',
+    amount: 30,
     bonus: 15,
-    totalCredits: 575,  // 500 + 15%
+    totalCredits: 34.50,  // $30 + 15% = $34.50
+    productId: POLAR_PRODUCT_IDS.balance_30,
   },
   {
-    id: 'balance_1000',
-    amount: 1000,
+    id: 'balance_60',
+    amount: 60,
     bonus: 20,
-    totalCredits: 1200,  // 1000 + 20%
+    totalCredits: 72.00,  // $60 + 20% = $72.00
+    productId: POLAR_PRODUCT_IDS.balance_60,
   },
 ]
 
@@ -69,14 +83,15 @@ export interface PaymentTransaction {
   completedAt?: string
 }
 
+// Calculate bonus based on USD amount
 export function calculateBonus(amount: number): { bonus: number; total: number } {
-  if (amount >= 1000) {
+  if (amount >= 60) {
     return { bonus: 20, total: amount * 1.2 }
-  } else if (amount >= 500) {
+  } else if (amount >= 30) {
     return { bonus: 15, total: amount * 1.15 }
-  } else if (amount >= 250) {
+  } else if (amount >= 15) {
     return { bonus: 10, total: amount * 1.1 }
-  } else if (amount >= 100) {
+  } else if (amount >= 5) {
     return { bonus: 5, total: amount * 1.05 }
   }
   return { bonus: 0, total: amount }

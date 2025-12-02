@@ -10,6 +10,10 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  verifyBeforeUpdateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
   Auth,
 } from 'firebase/auth'
 import { ref, get, set, onValue, Database } from 'firebase/database'
@@ -36,6 +40,8 @@ interface AuthContextType {
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
   refreshBalance: () => Promise<void>
+  updateUserEmail: (newEmail: string, currentPassword: string) => Promise<void>
+  updateUserPassword: (newPassword: string, currentPassword: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -188,6 +194,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const updateUserEmail = async (newEmail: string, currentPassword: string) => {
+    if (!auth || !user || !database) throw new Error('Firebase not initialized')
+    if (!user.email) throw new Error('Kullanıcı e-postası bulunamadı')
+
+    try {
+      setError(null)
+      // Reauthenticate first
+      const credential = EmailAuthProvider.credential(user.email, currentPassword)
+      await reauthenticateWithCredential(user, credential)
+
+      // Send verification email to new address
+      // Email will only change after user clicks the verification link
+      await verifyBeforeUpdateEmail(user, newEmail)
+
+      // Note: Database profile will be updated when user verifies the new email
+      // and signs in again (handled in onAuthStateChanged)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'E-posta güncellenirken bir hata oluştu'
+      setError(message)
+      throw err
+    }
+  }
+
+  const updateUserPassword = async (newPassword: string, currentPassword: string) => {
+    if (!auth || !user) throw new Error('Firebase not initialized')
+    if (!user.email) throw new Error('Kullanıcı e-postası bulunamadı')
+
+    try {
+      setError(null)
+      // Reauthenticate first
+      const credential = EmailAuthProvider.credential(user.email, currentPassword)
+      await reauthenticateWithCredential(user, credential)
+
+      // Update password
+      await updatePassword(user, newPassword)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Şifre güncellenirken bir hata oluştu'
+      setError(message)
+      throw err
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -201,6 +249,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signOut,
         resetPassword,
         refreshBalance,
+        updateUserEmail,
+        updateUserPassword,
       }}
     >
       {children}

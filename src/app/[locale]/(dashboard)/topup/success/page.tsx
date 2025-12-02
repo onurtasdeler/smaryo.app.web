@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { formatCurrency } from '@/lib/utils'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTranslation } from '@/i18n/client'
 import { CheckCircle, Loader2, Clock, RefreshCw, ArrowRight, Home } from 'lucide-react'
 
 type PageStatus = 'verifying' | 'success' | 'pending' | 'failed'
@@ -20,6 +21,7 @@ interface VerifyResponse {
 }
 
 export default function TopupSuccessPage() {
+  const { t, locale } = useTranslation()
   const searchParams = useSearchParams()
   const router = useRouter()
   const { user, profile, refreshBalance } = useAuth()
@@ -69,9 +71,9 @@ export default function TopupSuccessPage() {
       if (isDev) {
         await new Promise(resolve => setTimeout(resolve, 1500))
         setPaymentData({
-          amount: parseFloat(searchParams.get('amount') || '250'),
-          bonusAmount: parseFloat(searchParams.get('bonus') || '25'),
-          totalCredits: parseFloat(searchParams.get('total') || '275'),
+          amount: parseFloat(searchParams.get('amount') || '15'),
+          bonusAmount: parseFloat(searchParams.get('bonus') || '1.50'),
+          totalCredits: parseFloat(searchParams.get('total') || '16.50'),
         })
         setStatus('success')
         return
@@ -79,14 +81,14 @@ export default function TopupSuccessPage() {
 
       // No checkout ID - redirect to topup
       if (!checkoutId) {
-        router.push('/topup')
+        router.push(`/${locale}/topup`)
         return
       }
 
       // Must have user
       if (!user) {
         setStatus('failed')
-        setErrorMessage('Kullanıcı oturumu bulunamadı')
+        setErrorMessage(t('topup.success.noSession'))
         return
       }
 
@@ -128,17 +130,17 @@ export default function TopupSuccessPage() {
         } else {
           // Payment not successful
           if (data.status === 'expired' || data.status === 'failed') {
-            router.push(`/topup/failed?reason=${data.status}&checkout_id=${checkoutId}`)
+            router.push(`/${locale}/topup/failed?reason=${data.status}&checkout_id=${checkoutId}`)
           } else {
             setStatus('pending')
-            setErrorMessage(data.message || 'Ödeme doğrulanıyor...')
+            setErrorMessage(data.message || t('topup.success.verifying'))
             startBalancePolling()
           }
         }
       } catch (error) {
         console.error('[Success] Verification error:', error)
         setStatus('pending')
-        setErrorMessage('Bağlantı hatası, otomatik tekrar deneniyor...')
+        setErrorMessage(t('topup.success.connectionError'))
         startBalancePolling()
       }
     }
@@ -190,10 +192,10 @@ export default function TopupSuccessPage() {
       <div className="max-w-lg mx-auto text-center py-20 px-4">
         <Loader2 className="w-12 h-12 animate-spin text-foreground mx-auto mb-4" />
         <h1 className="text-xl font-light text-foreground mb-2">
-          Ödeme doğrulanıyor...
+          {t('topup.success.verifyingPayment')}
         </h1>
         <p className="text-muted-foreground">
-          Lütfen bekleyin, bu işlem birkaç saniye sürebilir.
+          {t('topup.success.pleaseWait')}
         </p>
       </div>
     )
@@ -212,30 +214,30 @@ export default function TopupSuccessPage() {
         </div>
 
         <h1 className="text-2xl font-light text-foreground mb-2 dash-animate dash-animate-delay-1">
-          Ödeme Alındı
+          {t('topup.success.paymentReceived')}
         </h1>
         <p className="text-muted-foreground mb-8 dash-animate dash-animate-delay-2">
-          {errorMessage || 'Ödemeniz alındı. Bakiyeniz birkaç dakika içinde hesabınıza yansıyacaktır.'}
+          {errorMessage || t('topup.success.balanceWillReflect')}
         </p>
 
         {/* Payment Info if available */}
         {paymentData && (
           <div className="mb-8 p-4 bg-muted/30 border border-border text-left dash-animate dash-animate-delay-3">
-            <p className="text-xs text-muted-foreground mb-2">İşlem Detayları</p>
+            <p className="text-xs text-muted-foreground mb-2">{t('topup.success.transactionDetails')}</p>
             <div className="space-y-1">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Tutar</span>
-                <span className="text-foreground">{formatCurrency(paymentData.amount)}</span>
+                <span className="text-muted-foreground">{t('topup.success.amount')}</span>
+                <span className="text-foreground">{formatCurrency(paymentData.amount, locale)}</span>
               </div>
               {paymentData.bonusAmount > 0 && (
                 <div className="flex justify-between text-sm text-green-600">
-                  <span>Bonus</span>
-                  <span>+{formatCurrency(paymentData.bonusAmount)}</span>
+                  <span>{t('topup.bonus')}</span>
+                  <span>+{formatCurrency(paymentData.bonusAmount, locale)}</span>
                 </div>
               )}
               <div className="flex justify-between text-sm font-medium pt-1 border-t border-border">
-                <span className="text-foreground">Toplam</span>
-                <span className="text-foreground">{formatCurrency(paymentData.totalCredits)}</span>
+                <span className="text-foreground">{t('topup.total')}</span>
+                <span className="text-foreground">{formatCurrency(paymentData.totalCredits, locale)}</span>
               </div>
             </div>
           </div>
@@ -247,17 +249,15 @@ export default function TopupSuccessPage() {
           className="inline-flex items-center gap-2 px-4 py-2 text-sm text-foreground border border-border hover:bg-muted/30 transition-colors dash-animate dash-animate-delay-4"
         >
           <RefreshCw className="w-4 h-4" />
-          Bakiyeyi Kontrol Et
+          {t('topup.success.checkBalance')}
         </button>
 
         {/* Support Info */}
         <p className="mt-8 text-xs text-muted-foreground dash-animate dash-animate-delay-5">
-          Endişelenmeyin - ödemeniz güvende.
-          Sorun devam ederse{' '}
-          <a href="mailto:destek@smaryo.app" className="underline hover:text-foreground">
-            destek@smaryo.app
+          {t('topup.success.dontWorry')}{' '}
+          <a href="mailto:support@smaryo.app" className="underline hover:text-foreground">
+            support@smaryo.app
           </a>
-          {' '}adresinden bize ulaşın.
         </p>
       </div>
     )
@@ -269,25 +269,25 @@ export default function TopupSuccessPage() {
       <div className="max-w-lg mx-auto text-center py-12 px-4">
         <div className="text-6xl mb-4">❌</div>
         <h1 className="text-2xl font-light text-foreground mb-2">
-          Doğrulama Başarısız
+          {t('topup.success.verificationFailed')}
         </h1>
         <p className="text-muted-foreground mb-8">
-          {errorMessage || 'Ödemeniz doğrulanamadı. Lütfen tekrar deneyin.'}
+          {errorMessage || t('topup.success.couldNotVerify')}
         </p>
         <div className="flex gap-4 justify-center">
           <Link
-            href="/topup"
+            href={`/${locale}/topup`}
             className="flex items-center gap-2 bg-foreground text-background px-6 py-3 font-medium hover:opacity-90 transition-opacity"
           >
             <RefreshCw className="w-4 h-4" />
-            Tekrar Dene
+            {t('topup.success.tryAgain')}
           </Link>
           <Link
-            href="/dashboard"
+            href={`/${locale}/dashboard`}
             className="flex items-center gap-2 border border-border text-foreground px-6 py-3 font-medium hover:bg-muted/30 transition-colors"
           >
             <Home className="w-4 h-4" />
-            Ana Sayfa
+            {t('topup.success.home')}
           </Link>
         </div>
       </div>
@@ -306,31 +306,31 @@ export default function TopupSuccessPage() {
       </div>
 
       <h1 className="text-2xl font-light text-foreground mb-2 dash-animate dash-animate-delay-1">
-        Ödeme Başarılı!
+        {t('topup.success.paymentSuccess')}
       </h1>
       <p className="text-muted-foreground mb-8 dash-animate dash-animate-delay-2">
-        Bakiyeniz başarıyla yüklendi.
+        {t('topup.success.balanceLoaded')}
       </p>
 
       {/* Summary Card */}
       {paymentData && (
         <div className="mb-8 p-6 bg-card border border-border text-left dash-animate dash-animate-delay-3">
-          <h2 className="font-medium text-foreground mb-4">İşlem Özeti</h2>
+          <h2 className="font-medium text-foreground mb-4">{t('topup.success.transactionSummary')}</h2>
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Yükleme Tutarı</span>
-              <span className="font-medium text-foreground">{formatCurrency(paymentData.amount)}</span>
+              <span className="text-muted-foreground">{t('topup.success.loadAmount')}</span>
+              <span className="font-medium text-foreground">{formatCurrency(paymentData.amount, locale)}</span>
             </div>
             {paymentData.bonusAmount > 0 && (
               <div className="flex justify-between text-green-600">
-                <span>Bonus</span>
-                <span className="font-medium">+{formatCurrency(paymentData.bonusAmount)}</span>
+                <span>{t('topup.bonus')}</span>
+                <span className="font-medium">+{formatCurrency(paymentData.bonusAmount, locale)}</span>
               </div>
             )}
             <div className="pt-3 border-t border-border flex justify-between">
-              <span className="font-medium text-foreground">Eklenen Bakiye</span>
+              <span className="font-medium text-foreground">{t('topup.success.addedBalance')}</span>
               <span className="font-bold text-xl text-foreground">
-                {formatCurrency(paymentData.totalCredits)}
+                {formatCurrency(paymentData.totalCredits, locale)}
               </span>
             </div>
           </div>
@@ -340,9 +340,9 @@ export default function TopupSuccessPage() {
       {/* Current Balance */}
       {profile?.balance !== undefined && (
         <div className="mb-8 p-4 bg-muted/30 border border-border dash-animate dash-animate-delay-4">
-          <p className="text-xs text-muted-foreground mb-1">Yeni Bakiyeniz</p>
+          <p className="text-xs text-muted-foreground mb-1">{t('topup.success.newBalance')}</p>
           <p className="text-2xl font-light text-foreground">
-            {formatCurrency(profile.balance)}
+            {formatCurrency(profile.balance, locale)}
           </p>
         </div>
       )}
@@ -350,25 +350,25 @@ export default function TopupSuccessPage() {
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-4 dash-animate dash-animate-delay-5">
         <Link
-          href="/activation"
+          href={`/${locale}/activation`}
           className="flex-1 flex items-center justify-center gap-2 bg-foreground text-background px-6 py-3 font-medium hover:opacity-90 transition-opacity"
         >
-          Aktivasyon Başlat
+          {t('topup.success.startActivation')}
           <ArrowRight className="w-4 h-4" />
         </Link>
         <Link
-          href="/dashboard"
+          href={`/${locale}/dashboard`}
           className="flex-1 flex items-center justify-center gap-2 border border-border text-foreground px-6 py-3 font-medium hover:bg-muted/30 transition-colors"
         >
           <Home className="w-4 h-4" />
-          Ana Sayfa
+          {t('topup.success.home')}
         </Link>
       </div>
 
       {/* Dev Mode Warning */}
       {isDev && (
         <div className="mt-8 p-4 bg-yellow-500/10 border border-yellow-500/20 text-yellow-700 text-sm dash-animate dash-animate-delay-6">
-          Bu bir geliştirme modundaki simülasyondur. Gerçek ödeme işlenmemiştir.
+          {t('topup.success.devModeWarning')}
         </div>
       )}
     </div>

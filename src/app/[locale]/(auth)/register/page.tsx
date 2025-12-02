@@ -4,10 +4,12 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTranslation } from '@/i18n/client'
 import { Loader2, ArrowRight, Check } from 'lucide-react'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const { t, locale } = useTranslation()
   const { signUp, signInWithGoogle, loading, error } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,17 +23,17 @@ export default function RegisterPage() {
     setLocalError(null)
 
     if (password.length < 6) {
-      setLocalError('Şifre en az 6 karakter olmalıdır')
+      setLocalError(t('auth.errors.minPassword'))
       return
     }
 
     if (password !== confirmPassword) {
-      setLocalError('Şifreler eşleşmiyor')
+      setLocalError(t('auth.errors.passwordMismatch'))
       return
     }
 
     if (!acceptedTerms) {
-      setLocalError('Kullanım şartlarını kabul etmelisiniz')
+      setLocalError(t('auth.errors.termsRequired'))
       return
     }
 
@@ -39,9 +41,9 @@ export default function RegisterPage() {
 
     try {
       await signUp(email, password)
-      router.push('/dashboard')
+      router.push(`/${locale}/dashboard`)
     } catch (err) {
-      setLocalError(getErrorMessage(err))
+      setLocalError(getErrorMessage(err, t))
     } finally {
       setIsSubmitting(false)
     }
@@ -53,9 +55,9 @@ export default function RegisterPage() {
 
     try {
       await signInWithGoogle()
-      router.push('/dashboard')
+      router.push(`/${locale}/dashboard`)
     } catch (err) {
-      setLocalError(getErrorMessage(err))
+      setLocalError(getErrorMessage(err, t))
     } finally {
       setIsSubmitting(false)
     }
@@ -66,12 +68,12 @@ export default function RegisterPage() {
   // Password strength indicator
   const getPasswordStrength = () => {
     if (!password) return { level: 0, text: '' }
-    if (password.length < 6) return { level: 1, text: 'Zayıf' }
-    if (password.length < 8) return { level: 2, text: 'Orta' }
+    if (password.length < 6) return { level: 1, text: t('auth.passwordStrength.weak') }
+    if (password.length < 8) return { level: 2, text: t('auth.passwordStrength.medium') }
     if (password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password)) {
-      return { level: 3, text: 'Güçlü' }
+      return { level: 3, text: t('auth.passwordStrength.strong') }
     }
-    return { level: 2, text: 'Orta' }
+    return { level: 2, text: t('auth.passwordStrength.medium') }
   }
 
   const passwordStrength = getPasswordStrength()
@@ -95,7 +97,7 @@ export default function RegisterPage() {
 
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 auth-animate">
+          <Link href={`/${locale}`} className="flex items-center gap-3 auth-animate">
             <div className="w-10 h-10 border border-white/30 flex items-center justify-center">
               <span className="text-lg font-light">S</span>
             </div>
@@ -105,40 +107,40 @@ export default function RegisterPage() {
           {/* Main Content */}
           <div className="max-w-md">
             <h1 className="text-4xl font-light leading-tight mb-6 auth-animate auth-animate-delay-1">
-              Hemen başlayın,
+              {t('auth.brandPanel.getStartedFree')}
               <br />
-              <span className="font-normal">ücretsiz.</span>
+              <span className="font-normal">{t('auth.brandPanel.free')}</span>
             </h1>
             <ul className="space-y-4 text-white/70 text-sm auth-animate auth-animate-delay-2">
               <li className="flex items-center gap-3">
                 <div className="w-5 h-5 border border-white/30 flex items-center justify-center">
                   <Check className="w-3 h-3" />
                 </div>
-                Anında hesap oluşturma
+                {t('auth.brandPanel.instantAccount')}
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-5 h-5 border border-white/30 flex items-center justify-center">
                   <Check className="w-3 h-3" />
                 </div>
-                50+ ülkeden numara seçeneği
+                {t('auth.brandPanel.countriesOption')}
               </li>
               <li className="flex items-center gap-3">
                 <div className="w-5 h-5 border border-white/30 flex items-center justify-center">
                   <Check className="w-3 h-3" />
                 </div>
-                7/24 destek ve güvenlik
+                {t('auth.brandPanel.supportSecurity')}
               </li>
             </ul>
           </div>
 
           {/* Footer */}
           <div className="flex items-center gap-8 text-xs text-white/40 auth-animate auth-animate-delay-3">
-            <span>© 2024 Smaryo</span>
-            <Link href="/privacy" className="hover:text-white/60 transition-colors">
-              Gizlilik
+            <span>&copy; 2024 Smaryo</span>
+            <Link href={`/${locale}/privacy`} className="hover:text-white/60 transition-colors">
+              {t('auth.privacyPolicy')}
             </Link>
-            <Link href="/terms" className="hover:text-white/60 transition-colors">
-              Şartlar
+            <Link href={`/${locale}/terms`} className="hover:text-white/60 transition-colors">
+              {t('auth.termsOfService')}
             </Link>
           </div>
         </div>
@@ -147,7 +149,7 @@ export default function RegisterPage() {
       {/* Right Panel - Form */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 py-12 lg:px-16 xl:px-24 bg-background">
         {/* Mobile Logo */}
-        <Link href="/" className="lg:hidden flex items-center gap-3 mb-12 auth-animate">
+        <Link href={`/${locale}`} className="lg:hidden flex items-center gap-3 mb-12 auth-animate">
           <div className="w-9 h-9 bg-foreground text-background flex items-center justify-center">
             <span className="text-base font-light">S</span>
           </div>
@@ -160,10 +162,10 @@ export default function RegisterPage() {
           {/* Header */}
           <div className="mb-10 auth-animate auth-animate-delay-1">
             <h2 className="text-2xl font-light text-foreground mb-2">
-              Hesap oluşturun
+              {t('auth.createAccount')}
             </h2>
             <p className="text-sm text-muted-foreground">
-              Kayıt olmak sadece bir dakika sürer
+              {t('auth.registrationTakesMinute')}
             </p>
           </div>
 
@@ -185,7 +187,7 @@ export default function RegisterPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   className="auth-input"
-                  placeholder="E-posta adresiniz"
+                  placeholder={t('auth.emailPlaceholder')}
                 />
                 <div className="auth-input-line" />
               </div>
@@ -201,7 +203,7 @@ export default function RegisterPage() {
                   required
                   minLength={6}
                   className="auth-input"
-                  placeholder="Şifre oluşturun"
+                  placeholder={t('auth.createPassword')}
                 />
                 <div className="auth-input-line" />
               </div>
@@ -237,12 +239,12 @@ export default function RegisterPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                   className="auth-input"
-                  placeholder="Şifreyi tekrarlayın"
+                  placeholder={t('auth.repeatPassword')}
                 />
                 <div className="auth-input-line" />
               </div>
               {confirmPassword && password !== confirmPassword && (
-                <p className="text-xs text-destructive mt-1">Şifreler eşleşmiyor</p>
+                <p className="text-xs text-destructive mt-1">{t('auth.errors.passwordMismatch')}</p>
               )}
             </div>
 
@@ -256,14 +258,14 @@ export default function RegisterPage() {
                   className="auth-checkbox mt-0.5"
                 />
                 <span className="text-xs text-muted-foreground leading-relaxed">
-                  <Link href="/terms" className="auth-link auth-link-underline">
-                    Kullanım Şartları
+                  {t('auth.termsAccept')}{' '}
+                  <Link href={`/${locale}/terms`} className="auth-link auth-link-underline">
+                    {t('auth.termsOfService')}
                   </Link>
-                  {' '}ve{' '}
-                  <Link href="/privacy" className="auth-link auth-link-underline">
-                    Gizlilik Politikası
+                  {' '}{t('auth.and')}{' '}
+                  <Link href={`/${locale}/privacy`} className="auth-link auth-link-underline">
+                    {t('auth.privacyPolicy')}
                   </Link>
-                  &apos;nı okudum ve kabul ediyorum.
                 </span>
               </label>
             </div>
@@ -278,7 +280,7 @@ export default function RegisterPage() {
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <>
-                    Kayıt Ol
+                    {t('auth.register')}
                     <ArrowRight className="h-4 w-4" />
                   </>
                 )}
@@ -288,7 +290,7 @@ export default function RegisterPage() {
 
           {/* Divider */}
           <div className="auth-divider my-8 auth-animate auth-animate-delay-6">
-            <span>veya</span>
+            <span>{t('common.or')}</span>
           </div>
 
           {/* Google */}
@@ -316,15 +318,15 @@ export default function RegisterPage() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Google ile kayıt ol
+              {t('auth.googleRegister')}
             </button>
           </div>
 
           {/* Login Link */}
           <p className="mt-10 text-center text-sm text-muted-foreground auth-animate auth-animate-delay-6">
-            Zaten hesabınız var mı?{' '}
-            <Link href="/login" className="auth-link auth-link-underline font-medium text-foreground">
-              Giriş yapın
+            {t('auth.hasAccount')}{' '}
+            <Link href={`/${locale}/login`} className="auth-link auth-link-underline font-medium text-foreground">
+              {t('auth.login')}
             </Link>
           </p>
         </div>
@@ -333,22 +335,22 @@ export default function RegisterPage() {
   )
 }
 
-function getErrorMessage(error: unknown): string {
+function getErrorMessage(error: unknown, t: (key: string) => string): string {
   if (error instanceof Error) {
     const message = error.message.toLowerCase()
     if (message.includes('email-already-in-use')) {
-      return 'Bu e-posta adresi zaten kullanılıyor'
+      return t('auth.errors.emailInUse')
     }
     if (message.includes('invalid-email')) {
-      return 'Geçersiz e-posta adresi'
+      return t('auth.errors.invalidEmail')
     }
     if (message.includes('weak-password')) {
-      return 'Daha güçlü bir şifre seçin'
+      return t('auth.errors.weakPassword')
     }
     if (message.includes('popup-closed-by-user')) {
-      return 'Kayıt penceresi kapatıldı'
+      return t('auth.errors.popupClosed')
     }
     return error.message
   }
-  return 'Bir hata oluştu'
+  return t('auth.errors.generic')
 }

@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
     let amount: number
     let bonusPercent: number
     let totalCredits: number
+    let productId: string | undefined
 
     // Check if using predefined package or custom amount
     if (packageId) {
@@ -41,6 +42,7 @@ export async function POST(request: NextRequest) {
       amount = selectedPackage.amount
       bonusPercent = selectedPackage.bonus
       totalCredits = selectedPackage.totalCredits
+      productId = selectedPackage.productId
     } else if (customAmount && typeof customAmount === 'number' && customAmount >= 10) {
       // Custom amount with dynamic bonus calculation
       amount = customAmount
@@ -74,9 +76,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Production: Create actual Polar checkout using SDK
+    // Use the package productId if available, otherwise fall back to env POLAR_PRODUCT_ID
+    const checkoutProductId = productId || process.env.POLAR_PRODUCT_ID
+
+    if (!checkoutProductId) {
+      return NextResponse.json(
+        { error: 'Ürün yapılandırması eksik' },
+        { status: 500 }
+      )
+    }
+
     try {
       const checkout = await polar.checkouts.create({
-        products: [process.env.POLAR_PRODUCT_ID!],
+        products: [checkoutProductId],
         successUrl: `${baseUrl}/topup/success?checkout_id={CHECKOUT_ID}`,
         customerEmail: email,
         metadata: {
@@ -100,17 +112,20 @@ export async function POST(request: NextRequest) {
       console.error('Polar SDK error:', polarError)
 
       // Fallback to direct API call if SDK fails
-      const response = await fetch('https://sandbox-api.polar.sh/v1/checkouts/custom/', {
+      const apiBase = process.env.NODE_ENV === 'production'
+        ? 'https://api.polar.sh'
+        : 'https://sandbox-api.polar.sh'
+
+      const response = await fetch(`${apiBase}/v1/checkouts/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.POLAR_ACCESS_TOKEN}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          product_price_id: process.env.POLAR_PRICE_ID,
+          products: [checkoutProductId],
           success_url: `${baseUrl}/topup/success?checkout_id={CHECKOUT_ID}`,
           customer_email: email,
-          payment_processor: 'stripe',
           metadata: {
             userId,
             amount: amount.toString(),

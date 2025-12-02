@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { formatCurrency, maskPhoneNumber } from '@/lib/utils'
+import { useTranslation } from '@/i18n/client'
 import Link from 'next/link'
 import { ArrowRight, Copy, Check } from 'lucide-react'
 
@@ -11,11 +12,11 @@ const MOCK_HISTORY = [
     id: '1',
     service: 'Telegram',
     serviceIcon: '📨',
-    country: 'Rusya',
+    country: 'russia',
     countryFlag: '🇷🇺',
     phone: '+79321234567',
     status: 'completed',
-    price: 12.5,
+    price: 0.15,
     code: '123456',
     createdAt: '2024-01-15T10:30:00Z',
   },
@@ -23,11 +24,11 @@ const MOCK_HISTORY = [
     id: '2',
     service: 'WhatsApp',
     serviceIcon: '💬',
-    country: 'Rusya',
+    country: 'russia',
     countryFlag: '🇷🇺',
     phone: '+79123456789',
     status: 'completed',
-    price: 15.0,
+    price: 0.18,
     code: '654321',
     createdAt: '2024-01-14T15:45:00Z',
   },
@@ -35,11 +36,11 @@ const MOCK_HISTORY = [
     id: '3',
     service: 'Instagram',
     serviceIcon: '📷',
-    country: 'Ukrayna',
+    country: 'ukraine',
     countryFlag: '🇺🇦',
     phone: '+380501234567',
     status: 'expired',
-    price: 14.0,
+    price: 0.17,
     code: null,
     createdAt: '2024-01-13T09:20:00Z',
   },
@@ -47,11 +48,11 @@ const MOCK_HISTORY = [
     id: '4',
     service: 'Google',
     serviceIcon: '🔍',
-    country: 'Endonezya',
+    country: 'indonesia',
     countryFlag: '🇮🇩',
     phone: '+6281234567890',
     status: 'cancelled',
-    price: 18.0,
+    price: 0.22,
     code: null,
     createdAt: '2024-01-12T14:15:00Z',
   },
@@ -60,6 +61,7 @@ const MOCK_HISTORY = [
 type FilterStatus = 'all' | 'completed' | 'expired' | 'cancelled'
 
 export default function HistoryPage() {
+  const { t, locale } = useTranslation()
   const [filter, setFilter] = useState<FilterStatus>('all')
   const [history] = useState(MOCK_HISTORY)
   const [copiedId, setCopiedId] = useState<string | null>(null)
@@ -83,41 +85,52 @@ export default function HistoryPage() {
       .reduce((sum, h) => sum + h.price, 0),
   }
 
+  // Date formatting based on locale
+  const formatHistoryDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(locale === 'tr' ? 'tr-TR' : 'en-US', {
+      day: '2-digit',
+      month: 'short',
+    })
+  }
+
+  // Filter options
+  const filterOptions = [
+    { value: 'all', label: t('history.filters.all') },
+    { value: 'completed', label: t('history.filters.completed') },
+    { value: 'expired', label: t('history.filters.expired') },
+    { value: 'cancelled', label: t('history.filters.cancelled') },
+  ]
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       {/* Header */}
       <header className="dash-animate mb-8">
-        <p className="dash-stat-label mb-2">Geçmiş</p>
+        <p className="dash-stat-label mb-2">{t('history.title')}</p>
         <h1 className="text-3xl sm:text-4xl font-light text-foreground">
-          Aktivasyonlar
+          {t('history.subtitle')}
         </h1>
       </header>
 
       {/* Stats Row */}
       <section className="grid grid-cols-3 gap-6 mb-8 dash-animate dash-animate-delay-1">
         <div className="dash-stat">
-          <p className="dash-stat-label">Toplam</p>
+          <p className="dash-stat-label">{t('history.stats.total')}</p>
           <p className="dash-stat-value">{stats.total}</p>
         </div>
         <div className="dash-stat">
-          <p className="dash-stat-label">Başarılı</p>
+          <p className="dash-stat-label">{t('history.stats.successful')}</p>
           <p className="dash-stat-value">{stats.completed}</p>
         </div>
         <div className="dash-stat">
-          <p className="dash-stat-label">Harcanan</p>
-          <p className="dash-stat-value">{formatCurrency(stats.totalSpent)}</p>
+          <p className="dash-stat-label">{t('history.stats.spent')}</p>
+          <p className="dash-stat-value">{formatCurrency(stats.totalSpent, locale)}</p>
         </div>
       </section>
 
       {/* Filters */}
       <section className="dash-animate dash-animate-delay-2 mb-6">
         <div className="flex gap-2 overflow-x-auto pb-2">
-          {[
-            { value: 'all', label: 'Tümü' },
-            { value: 'completed', label: 'Başarılı' },
-            { value: 'expired', label: 'Süresi Doldu' },
-            { value: 'cancelled', label: 'İptal' },
-          ].map(({ value, label }) => (
+          {filterOptions.map(({ value, label }) => (
             <button
               key={value}
               onClick={() => setFilter(value as FilterStatus)}
@@ -142,10 +155,10 @@ export default function HistoryPage() {
           <div className="dash-empty py-16">
             <div className="dash-empty-icon">📭</div>
             <p className="dash-empty-text">
-              Henüz kayıt yok
+              {t('history.noRecords')}
               <br />
-              <Link href="/activation" className="dash-link mt-2 inline-flex">
-                İlk aktivasyonunuzu yapın <ArrowRight className="w-3 h-3" />
+              <Link href={`/${locale}/activation`} className="dash-link mt-2 inline-flex">
+                {t('history.firstActivation')} <ArrowRight className="w-3 h-3" />
               </Link>
             </p>
           </div>
@@ -161,10 +174,7 @@ export default function HistoryPage() {
               >
                 {/* Time */}
                 <span className="dash-activity-time hidden sm:block">
-                  {new Date(item.createdAt).toLocaleDateString('tr-TR', {
-                    day: '2-digit',
-                    month: 'short',
-                  })}
+                  {formatHistoryDate(item.createdAt)}
                 </span>
 
                 {/* Status Dot */}
@@ -188,13 +198,13 @@ export default function HistoryPage() {
                       •
                     </span>
                     <span className="text-sm text-muted-foreground hidden sm:inline">
-                      {item.countryFlag} {item.country}
+                      {item.countryFlag}
                     </span>
                   </div>
                   <div className="flex items-center gap-4 mt-1 text-xs text-muted-foreground">
                     <span className="font-mono">{maskPhoneNumber(item.phone)}</span>
                     <span className="sm:hidden">
-                      {item.countryFlag} {item.country}
+                      {item.countryFlag}
                     </span>
                   </div>
                 </div>
@@ -220,7 +230,7 @@ export default function HistoryPage() {
 
                 {/* Price */}
                 <span className="text-sm font-medium text-foreground">
-                  {formatCurrency(item.price)}
+                  {formatCurrency(item.price, locale)}
                 </span>
 
                 {/* Status Badge */}
@@ -232,9 +242,9 @@ export default function HistoryPage() {
                     ${item.status === 'cancelled' ? 'dash-badge-neutral' : ''}
                   `}
                 >
-                  {item.status === 'completed' && 'Başarılı'}
-                  {item.status === 'expired' && 'Süresi Doldu'}
-                  {item.status === 'cancelled' && 'İptal'}
+                  {item.status === 'completed' && t('history.status.completed')}
+                  {item.status === 'expired' && t('history.status.expired')}
+                  {item.status === 'cancelled' && t('history.status.cancelled')}
                 </span>
               </div>
             ))}
