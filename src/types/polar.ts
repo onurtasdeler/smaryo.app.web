@@ -10,12 +10,20 @@ export interface BalancePackage {
   priceId?: string    // Polar price ID
 }
 
-// Polar Sandbox Product IDs - will be updated after creating USD products
+// Polar Production Product IDs
 export const POLAR_PRODUCT_IDS = {
-  balance_5: '',   // $5 package
-  balance_15: '',  // $15 package
-  balance_30: '',  // $30 package
-  balance_60: '',  // $60 package
+  balance_5: '1c0d284e-1d45-4a5b-8184-0ab3e63fd150',   // $5 package
+  balance_15: '63db8e06-96ec-4857-bbda-92b6ade92e98',  // $15 package
+  balance_30: '877baa74-31fe-49d2-aac5-b74bb151b3ab',  // $30 package
+  balance_60: 'd6079fea-c6d8-4ddc-9595-0b75d35daf1f',  // $60 package
+} as const
+
+// Polar Production Price IDs
+export const POLAR_PRICE_IDS = {
+  balance_5: 'a03348c9-ec7f-4901-9bfb-e5bd356ca14f',   // $5 price
+  balance_15: '2a42ee59-fcce-49aa-8c82-c929165d2120',  // $15 price
+  balance_30: 'acf4ee50-6e5c-4467-895a-22414e786472',  // $30 price
+  balance_60: 'f498fef2-1563-4d72-a581-ea83c0546288',  // $60 price
 } as const
 
 // Balance packages with bonus rates (USD)
@@ -27,6 +35,7 @@ export const BALANCE_PACKAGES: BalancePackage[] = [
     bonus: 5,
     totalCredits: 5.25,  // $5 + 5% = $5.25
     productId: POLAR_PRODUCT_IDS.balance_5,
+    priceId: POLAR_PRICE_IDS.balance_5,
   },
   {
     id: 'balance_15',
@@ -34,6 +43,7 @@ export const BALANCE_PACKAGES: BalancePackage[] = [
     bonus: 10,
     totalCredits: 16.50,  // $15 + 10% = $16.50
     productId: POLAR_PRODUCT_IDS.balance_15,
+    priceId: POLAR_PRICE_IDS.balance_15,
   },
   {
     id: 'balance_30',
@@ -41,6 +51,7 @@ export const BALANCE_PACKAGES: BalancePackage[] = [
     bonus: 15,
     totalCredits: 34.50,  // $30 + 15% = $34.50
     productId: POLAR_PRODUCT_IDS.balance_30,
+    priceId: POLAR_PRICE_IDS.balance_30,
   },
   {
     id: 'balance_60',
@@ -48,6 +59,7 @@ export const BALANCE_PACKAGES: BalancePackage[] = [
     bonus: 20,
     totalCredits: 72.00,  // $60 + 20% = $72.00
     productId: POLAR_PRODUCT_IDS.balance_60,
+    priceId: POLAR_PRICE_IDS.balance_60,
   },
 ]
 
