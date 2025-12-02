@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:cloudflare": "npx opennextjs-cloudflare",
+    "preview": "npx wrangler dev",
+    "deploy": "npx wrangler deploy",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit"
@@ -43,6 +46,7 @@
     "zustand": "^5.0.0"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.14.1",
     "@types/node": "22.15.29",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
